@@ -24,9 +24,13 @@
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     padding: 16px;
   }
-  header { max-width: 1400px; margin: 0 auto 16px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
-  header h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: .3px; }
-  header p { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
+header { max-width: 1400px; margin: 0 auto 16px; padding-bottom: 14px; border-bottom: 1px solid var(--line);
+         display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+header h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: .3px; }
+header p { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
+.fb-btn { background: var(--accent); color: #fff; text-decoration: none; font-size: 14px; font-weight: 600;
+          padding: 9px 16px; border-radius: 8px; transition: opacity .15s; }
+.fb-btn:hover { opacity: .85; }
   .bar { display: grid; grid-template-columns: 1fr minmax(0, 420px) 1fr; gap: 10px; align-items: center; max-width: 1400px; margin: 0 auto 18px; }
   input, button {
     background: var(--panel); color: var(--text); border: 1px solid var(--line);
@@ -76,8 +80,11 @@
 <body>
 
 <header>
-  <h1>ZSTD Catalog</h1>
-  <p>Aportes comunitarios de la comunidad PS5 jailbreak 1.xx 14.10 en español</p>
+  <div>
+    <h1>ZSTD Catalog</h1>
+    <p>Aportes comunitarios de la comunidad</p>
+  </div>
+  <a class="fb-btn" href="https://www.facebook.com/groups/1360606341513689/" target="_blank" rel="noopener noreferrer">Grupo de Facebook</a>
 </header>
 
 <div class="bar">
