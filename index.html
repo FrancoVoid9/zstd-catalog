@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZSTD Catalog</title>
+<style>
+  :root {
+    --bg: #0d1220; --panel: #151b2c; --line: #263047; --text: #e8ecf5;
+    --muted: #8b95ad; --accent: #4f8cff; --tag-bg: #17294d; --tag-text: #8fb4ff;
+    --tag2-bg: #123a33; --tag2-text: #5fd6b4;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #f2f4f9; --panel: #ffffff; --line: #d9deea; --text: #18202f;
+      --muted: #5f6a82; --accent: #2a64d6; --tag-bg: #e3ecff; --tag-text: #2a5bc4;
+      --tag2-bg: #dff5ee; --tag2-text: #11785f;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { color-scheme: dark light; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    padding: 16px;
+  }
+  header { max-width: 1400px; margin: 0 auto 16px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+  header h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: .3px; }
+  .bar { display: grid; grid-template-columns: 1fr minmax(0, 420px) 1fr; gap: 10px; align-items: center; max-width: 1400px; margin: 0 auto 18px; }
+  input, button {
+    background: var(--panel); color: var(--text); border: 1px solid var(--line);
+    border-radius: 8px; padding: 8px 10px; font: inherit; font-size: 13px;
+  }
+  input { grid-column: 2; width: 100%; }
+  #view { grid-column: 3; justify-self: end; }
+  button { cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .grid {
+    max-width: 1400px; margin: 0 auto; display: grid; gap: 18px;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  }
+  .card {
+    display: block; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 10px; overflow: hidden; color: inherit; text-decoration: none;
+    transition: border-color .15s, transform .15s;
+  }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .cover { position: relative; aspect-ratio: 3 / 4; background-size: cover; background-position: center; }
+  .cover .initials {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    font-size: 44px; font-weight: 700; color: rgba(255,255,255,.85); letter-spacing: 1px;
+  }
+  .chip {
+    position: absolute; bottom: 8px; font-size: 11px; font-weight: 700; color: #fff;
+    background: rgba(0,0,0,.65); padding: 2px 7px; border-radius: 5px;
+  }
+  .chip.size { left: 8px; } .chip.ver { right: 8px; }
+  .info { padding: 10px 12px 12px; }
+  .title { font-size: 14px; font-weight: 700; margin: 0 0 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .id { font-size: 12px; color: var(--muted); margin: 0 0 8px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tag { font-size: 11px; padding: 2px 8px; border-radius: 6px; background: var(--tag-bg); color: var(--tag-text); border: 1px solid var(--line); }
+  .tag.alt { background: var(--tag2-bg); color: var(--tag2-text); }
+  /* list view */
+  .grid.list { grid-template-columns: 1fr; gap: 10px; }
+  .grid.list .card { display: flex; }
+  .grid.list .cover { width: 72px; aspect-ratio: 1; flex: none; }
+  .grid.list .initials { font-size: 22px; }
+  .grid.list .chip { display: none; }
+  .grid.list .info { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+  .empty { grid-column: 1 / -1; text-align: center; color: var(--muted); padding: 40px 0; }
+  @media (max-width: 600px) { .bar { grid-template-columns: 1fr auto; } input { grid-column: 1; } #view { grid-column: 2; } }
+</style>
+</head>
+<body>
+
+<header><h1>ZSTD Catalog</h1></header>
+
+<div class="bar">
+  <input id="search" type="search" placeholder="Buscar por título o ID..." aria-label="Buscar">
+  <button id="view" title="Cambiar entre cuadrícula y lista" aria-label="Cambiar entre cuadrícula y lista">&#9776;</button>
+</div>
+
+<main class="grid" id="grid"></main>
+
+<script>
+/* ============ EDITA TUS ARCHIVOS AQUÍ ============
+   title   : nombre que se muestra en la tarjeta
+   id      : cualquier ID que quieras
+   version : se muestra arriba a la derecha de la portada
+   size    : se muestra abajo a la izquierda de la portada
+   image   : ruta o URL de la portada (opcional; si está vacío se crea un color con iniciales)
+   link    : a dónde lleva la tarjeta al hacer clic
+   tags    : etiquetas pequeñas bajo el ID (empieza con "alt:" para el estilo verde)
+*/
+const ITEMS = [
+  { title: "God of War: Sons of Sparta", id: "PPSA28997", version: "v01.008.001", size: "8.0 GB",
+    image: "", link: "https://gofile.io/d/moHevfwy", tags: ["ampr-emu-ng v0.3.3", "4.xx+"] },
+  { title: "Portal de configuración WiFi", id: "PRJ-0002", version: "v0.9.3", size: "88 KB",
+    image: "", link: "https://github.com/", tags: ["ESP32-C3", "alt:mDNS"] },
+  { title: "Panel MQTT en navegador", id: "WEB-0001", version: "v2.0.1", size: "56 KB",
+    image: "", link: "https://github.com/", tags: ["GitHub Pages", "alt:EMQX"] },
+  { title: "Paquete de diagramas de conexión", id: "DOC-0001", version: "v1.0", size: "12.4 MB",
+    image: "", link: "https://github.com/", tags: ["PDF", "alt:Imprimible"] },
+  { title: "Carcasa imprimible en 3D", id: "CAD-0001", version: "v3.1", size: "6.8 MB",
+    image: "", link: "https://github.com/", tags: ["STL", "alt:Super Mini"] }
+];
+/* ============================================= */
+
+const grid = document.getElementById('grid');
+const search = document.getElementById('search');
+const viewBtn = document.getElementById('view');
+
+function hue(str) {
+  let h = 0;
+  for (const c of str) h = (h * 31 + c.charCodeAt(0)) % 360;
+  return h;
+}
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function safeUrl(u) {
+  try { const p = new URL(u, location.href); return /^https?:$/.test(p.protocol) ? p.href : '#'; }
+  catch { return '#'; }
+}
+
+function render() {
+  const q = search.value.trim().toLowerCase();
+  const list = ITEMS.filter(i =>
+    !q || i.title.toLowerCase().includes(q) || String(i.id).toLowerCase().includes(q)
+  );
+  if (!list.length) { grid.innerHTML = '<p class="empty">No hay resultados para tu búsqueda.</p>'; return; }
+  grid.innerHTML = list.map(i => {
+    const h = hue(i.title);
+    const bg = i.image
+      ? `background-image:url('${esc(i.image)}')`
+      : `background-image:linear-gradient(160deg,hsl(${h} 55% 38%),hsl(${(h + 50) % 360} 60% 18%))`;
+    const initials = i.image ? '' :
+      `<span class="initials">${esc(i.title.split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase())}</span>`;
+    const tags = (i.tags || []).map(t =>
+      t.startsWith('alt:') ? `<span class="tag alt">${esc(t.slice(4))}</span>` : `<span class="tag">${esc(t)}</span>`
+    ).join('');
+    return `<a class="card" href="${esc(safeUrl(i.link))}" target="_blank" rel="noopener noreferrer">
+      <div class="cover" style="${bg}">${initials}
+        <span class="chip size">${esc(i.size)}</span><span class="chip ver">${esc(i.version)}</span>
+      </div>
+      <div class="info">
+        <p class="title" title="${esc(i.title)}">${esc(i.title)}</p>
+        <p class="id">${esc(i.id)}</p>
+        <div class="tags">${tags}</div>
+      </div></a>`;
+  }).join('');
+}
+
+search.addEventListener('input', render);
+viewBtn.addEventListener('click', () => grid.classList.toggle('list'));
+render();
+</script>
+</body>
+</html>
