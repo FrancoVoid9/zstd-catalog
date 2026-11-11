@@ -81,6 +81,14 @@ header p { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
   .grid.list .info { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
   .empty { grid-column: 1 / -1; text-align: center; color: var(--muted); padding: 40px 0; }
   @media (max-width: 600px) { .bar { grid-template-columns: 1fr auto; } input { grid-column: 1; } #view { grid-column: 2; } }
+    @media (max-width: 600px) {
+    header { gap: 10px; }
+    header h1 { font-size: 20px; }
+    header p { font-size: 12px; }
+    .brand { gap: 10px; }
+    .brand img { height: 80px !important; max-width: 96px; }
+    .fb-btn { padding: 7px 12px; font-size: 13px; }
+  }
 </style>
 </head>
 <body>
