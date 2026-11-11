@@ -17,74 +17,196 @@
       --tag2-bg: #dff5ee; --tag2-text: #11785f;
     }
   }
+
   * { box-sizing: border-box; }
   html { color-scheme: dark light; }
+
   body {
-    margin: 0; background: var(--bg); color: var(--text);
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     padding: 16px;
   }
-header { max-width: 1500px; margin: 0 auto 16px; padding-bottom: 14px; border-bottom: 1px solid var(--line);
-         display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
-header h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: .3px; }
-header p { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
-.brand { display: flex; align-items: center; gap: 14px; }
-.brand img { height: 72px; width: auto; max-width: 200px; object-fit: contain; display: block; }
-.count { color: var(--text); font-weight: 600; }
-.fb-btn { background: var(--accent); color: #fff; text-decoration: none; font-size: 14px; font-weight: 600;
-          padding: 9px 16px; border-radius: 8px; transition: opacity .15s; }
-.fb-btn:hover { opacity: .85; }
-  .bar { display: grid; grid-template-columns: 1fr minmax(0, 420px) 1fr; gap: 10px; align-items: center; max-width: 1500px; margin: 0 auto 18px; }
+
+  header {
+    max-width: 1500px;
+    margin: 0 auto 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  header h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: .3px; }
+  header p { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand img { height: 72px; width: auto; max-width: 200px; object-fit: contain; display: block; }
+  .count { color: var(--text); font-weight: 600; }
+
+  .fb-btn {
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px 16px;
+    border-radius: 8px;
+    transition: opacity .15s;
+  }
+  .fb-btn:hover { opacity: .85; }
+
+  .bar {
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 420px) 1fr;
+    gap: 10px;
+    align-items: center;
+    max-width: 1500px;
+    margin: 0 auto 18px;
+  }
+
   input, button {
-    background: var(--panel); color: var(--text); border: 1px solid var(--line);
-    border-radius: 8px; padding: 8px 10px; font: inherit; font-size: 13px;
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font: inherit;
+    font-size: 13px;
   }
   input { grid-column: 2; width: 100%; }
   #view { grid-column: 3; justify-self: end; }
   button { cursor: pointer; }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* 11 columns on wide screens */
   .grid {
-    max-width: 1500px; margin: 0 auto; display: grid; gap: 18px;
-    grid-template-columns: repeat(6, 1fr);
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(11, minmax(0, 1fr));
   }
-  @media (max-width: 1100px) { .grid { grid-template-columns: repeat(4, 1fr); } }
-  @media (max-width: 800px)  { .grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 560px)  { .grid { grid-template-columns: repeat(2, 1fr); } }
+
+  /* Adapt the number of columns for narrower screens */
+  @media (max-width: 1300px) {
+    .grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  }
+  @media (max-width: 1000px) {
+    .grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  }
+  @media (max-width: 760px) {
+    .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  @media (max-width: 560px) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
   .card {
-    display: block; background: var(--panel); border: 1px solid var(--line);
-    border-radius: 10px; overflow: hidden; color: inherit; text-decoration: none;
+    min-width: 0;
+    display: block;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
     transition: border-color .15s, transform .15s;
   }
   .card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .cover { position: relative; aspect-ratio: 3 / 4; background-size: cover; background-position: center; }
+
+  .cover {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    background-size: cover;
+    background-position: center;
+  }
   .cover .initials {
-    position: absolute; inset: 0; display: grid; place-items: center;
-    font-size: 44px; font-weight: 700; color: rgba(255,255,255,.85); letter-spacing: 1px;
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: rgba(255,255,255,.85);
+    letter-spacing: 1px;
   }
+
   .chip {
-    position: absolute; bottom: 8px; font-size: 11px; font-weight: 700; color: #fff;
-    background: rgba(0,0,0,.65); padding: 2px 7px; border-radius: 5px;
+    position: absolute;
+    bottom: 6px;
+    font-size: 9px;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(0,0,0,.70);
+    padding: 2px 4px;
+    border-radius: 4px;
+    max-width: calc(50% - 8px);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
-  .chip.size { left: 8px; } .chip.ver { right: 8px; }
-  .info { padding: 10px 12px 12px; }
-  .title { font-size: 14px; font-weight: 700; margin: 0 0 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .id { font-size: 12px; color: var(--muted); margin: 0 0 8px; }
-  .tags { display: flex; flex-wrap: wrap; gap: 5px; }
-  .tag { font-size: 11px; padding: 2px 8px; border-radius: 6px; background: var(--tag-bg); color: var(--tag-text); border: 1px solid var(--line); }
+  .chip.size { left: 5px; }
+  .chip.ver { right: 5px; }
+
+  .info { padding: 7px; }
+  .title {
+    font-size: 11px;
+    font-weight: 700;
+    margin: 0 0 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .id { font-size: 10px; color: var(--muted); margin: 0 0 6px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .tag {
+    font-size: 9px;
+    padding: 2px 5px;
+    border-radius: 5px;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    border: 1px solid var(--line);
+    overflow-wrap: anywhere;
+  }
   .tag.alt { background: var(--tag2-bg); color: var(--tag2-text); }
-  /* list view */
-  .grid.list { grid-template-columns: 1fr; gap: 10px; }
+
+  /* List view */
+  .grid.list { grid-template-columns: 1fr !important; gap: 10px; }
   .grid.list .card { display: flex; }
   .grid.list .cover { width: 72px; aspect-ratio: 1; flex: none; }
   .grid.list .initials { font-size: 22px; }
   .grid.list .chip { display: none; }
-  .grid.list .info { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
-  .empty { grid-column: 1 / -1; text-align: center; color: var(--muted); padding: 40px 0; }
-  @media (max-width: 600px) { .bar { grid-template-columns: 1fr auto; } input { grid-column: 1; } #view { grid-column: 2; } }
+  .grid.list .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--muted);
+    padding: 40px 0;
+  }
+
+  @media (max-width: 600px) {
+    .bar { grid-template-columns: 1fr auto; }
+    input { grid-column: 1; }
+    #view { grid-column: 2; }
+    header h1 { font-size: 20px; }
+    .brand { align-items: flex-start; }
+    .brand img { max-width: 90px; }
+  }
 </style>
 </head>
 <body>
-  
+
 <header>
   <div class="brand">
     <img id="logo" src="Covers/logo.png" alt="Logo">
@@ -180,9 +302,7 @@ const ITEMS = [
   { title: "ASTRO BOT", id: "PPSA21567", version: "01.018.000", size: "39.58 GB",
     image: "Covers/PPSA21567.avif", link: "https://welinkly.com/yaredcf/astroot", tags: ["ampr-emu-ng v0.3.4", "4.xx+", "Creditos: @rbustosm"] },
   { title: "Metaphor: ReFantazio", id: "PPSA20800", version: "v01.013", size: "42.47 GB",
-    image: "Covers/PPSA20800.jpg", link: "https://vik1ngfile.site/f/749Ebyrtlr", tags: ["ampr-emu-ng v0.3.4", "4.xx+", "Creditos: Poncho"] },
-
-
+    image: "Covers/PPSA20800.jpg", link: "https://vik1ngfile.site/f/749Ebyrtlr", tags: ["ampr-emu-ng v0.3.4", "4.xx+", "Creditos: Poncho"] }
 ];
 /* ============================================= */
 
@@ -195,12 +315,20 @@ function hue(str) {
   for (const c of str) h = (h * 31 + c.charCodeAt(0)) % 360;
   return h;
 }
+
 function esc(s) {
-  return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  return String(s ?? '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+  }[c]));
 }
+
 function safeUrl(u) {
-  try { const p = new URL(u, location.href); return /^https?:$/.test(p.protocol) ? p.href : '#'; }
-  catch { return '#'; }
+  try {
+    const p = new URL(u, location.href);
+    return /^https?:$/.test(p.protocol) ? p.href : '#';
+  } catch {
+    return '#';
+  }
 }
 
 function render() {
@@ -208,37 +336,56 @@ function render() {
   const list = ITEMS.filter(i =>
     !q || i.title.toLowerCase().includes(q) || String(i.id).toLowerCase().includes(q)
   );
-  if (!list.length) { grid.innerHTML = '<p class="empty">No hay resultados para tu búsqueda.</p>'; return; }
+
+  if (!list.length) {
+    grid.innerHTML = '<p class="empty">No hay resultados para tu búsqueda.</p>';
+    return;
+  }
+
   grid.innerHTML = list.map(i => {
     const h = hue(i.title);
     const bg = i.image
       ? `background-image:url('${esc(i.image)}')`
       : `background-image:linear-gradient(160deg,hsl(${h} 55% 38%),hsl(${(h + 50) % 360} 60% 18%))`;
+
     const initials = i.image ? '' :
       `<span class="initials">${esc(i.title.split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase())}</span>`;
+
     const tags = (i.tags || []).map(t =>
-      t.startsWith('alt:') ? `<span class="tag alt">${esc(t.slice(4))}</span>` : `<span class="tag">${esc(t)}</span>`
+      t.startsWith('alt:')
+        ? `<span class="tag alt">${esc(t.slice(4))}</span>`
+        : `<span class="tag">${esc(t)}</span>`
     ).join('');
+
     return `<a class="card" href="${esc(safeUrl(i.link))}" target="_blank" rel="noopener noreferrer">
       <div class="cover" style="${bg}">${initials}
-        <span class="chip size">${esc(i.size)}</span><span class="chip ver">${esc(i.version)}</span>
+        <span class="chip size">${esc(i.size)}</span>
+        <span class="chip ver">${esc(i.version)}</span>
       </div>
       <div class="info">
         <p class="title" title="${esc(i.title)}">${esc(i.title)}</p>
         <p class="id">${esc(i.id)}</p>
         <div class="tags">${tags}</div>
-      </div></a>`;
+      </div>
+    </a>`;
   }).join('');
 }
 
 search.addEventListener('input', render);
 viewBtn.addEventListener('click', () => grid.classList.toggle('list'));
+
 const n = ITEMS.length;
 document.getElementById('count').textContent = n + (n === 1 ? ' Juego' : ' Juegos');
+
 render();
+
 const logo = document.getElementById('logo');
 const brandText = document.getElementById('brand-text');
-function fitLogo() { logo.style.height = brandText.offsetHeight + 'px'; }
+
+function fitLogo() {
+  logo.style.height = brandText.offsetHeight + 'px';
+}
+
 logo.addEventListener('load', fitLogo);
 logo.addEventListener('error', () => logo.remove());
 window.addEventListener('load', fitLogo);
