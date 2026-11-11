@@ -28,6 +28,8 @@ header { max-width: 1500px; margin: 0 auto 16px; padding-bottom: 14px; border-bo
          display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
 header h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: .3px; }
 header p { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand img { height: 72px; width: auto; max-width: 200px; object-fit: contain; display: block; }
 .count { color: var(--text); font-weight: 600; }
 .fb-btn { background: var(--accent); color: #fff; text-decoration: none; font-size: 14px; font-weight: 600;
           padding: 9px 16px; border-radius: 8px; transition: opacity .15s; }
@@ -82,12 +84,15 @@ header p { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
 </style>
 </head>
 <body>
-
+  
 <header>
-  <div>
-    <h1>Catálogo ZSTD por la comunidad PS5 jailbreak 1.xx 14.10 en español</h1>
-    <p>Aportes comunitarios. De la comunidad para la comunidad ☭</p>
-    <p id="count" class="count"></p>
+  <div class="brand">
+    <img id="logo" src="logo.png" alt="Logo">
+    <div id="brand-text">
+      <h1>Catálogo ZSTD por la comunidad PS5 jailbreak 1.xx 14.10 en español</h1>
+      <p>Aportes comunitarios. De la comunidad para la comunidad ☭</p>
+      <p id="count" class="count"></p>
+    </div>
   </div>
   <a class="fb-btn" href="https://www.facebook.com/groups/1360606341513689/" target="_blank" rel="noopener noreferrer">Grupo de Facebook</a>
 </header>
@@ -227,6 +232,14 @@ viewBtn.addEventListener('click', () => grid.classList.toggle('list'));
 const n = ITEMS.length;
 document.getElementById('count').textContent = n + (n === 1 ? ' Juego' : ' Juegos');
 render();
+const logo = document.getElementById('logo');
+const brandText = document.getElementById('brand-text');
+function fitLogo() { logo.style.height = brandText.offsetHeight + 'px'; }
+logo.addEventListener('load', fitLogo);
+logo.addEventListener('error', () => logo.remove());
+window.addEventListener('load', fitLogo);
+window.addEventListener('resize', fitLogo);
+fitLogo();
 </script>
 </body>
 </html>
