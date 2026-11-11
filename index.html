@@ -28,6 +28,7 @@ header { max-width: 1500px; margin: 0 auto 16px; padding-bottom: 14px; border-bo
          display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
 header h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: .3px; }
 header p { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
+.count { color: var(--text); font-weight: 600; }
 .fb-btn { background: var(--accent); color: #fff; text-decoration: none; font-size: 14px; font-weight: 600;
           padding: 9px 16px; border-radius: 8px; transition: opacity .15s; }
 .fb-btn:hover { opacity: .85; }
@@ -86,6 +87,7 @@ header p { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
   <div>
     <h1>ZSTD Catalog by PS5 jailbreak 1.xx 14.10 en español</h1>
     <p>Aportes comunitarios de la comunidad PS5 jailbreak 1.xx 14.10 en español</p>
+    <p id="count" class="count"></p>
   </div>
   <a class="fb-btn" href="https://www.facebook.com/groups/1360606341513689/" target="_blank" rel="noopener noreferrer">Grupo de Facebook</a>
 </header>
@@ -98,7 +100,7 @@ header p { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
 <main class="grid" id="grid"></main>
 
 <script>
-/* ============ EDITA TUS ARCHIVOS AQUÍ ============
+/* ============ EDITA TUS JUEGOS AQUÍ ============
    title   : nombre que se muestra en la tarjeta
    id      : cualquier ID que quieras
    version : se muestra arriba a la derecha de la portada
@@ -222,6 +224,8 @@ function render() {
 
 search.addEventListener('input', render);
 viewBtn.addEventListener('click', () => grid.classList.toggle('list'));
+const n = ITEMS.length;
+document.getElementById('count').textContent = n + (n === 1 ? ' Juego' : ' Juegos');
 render();
 </script>
 </body>
