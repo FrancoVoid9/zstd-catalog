@@ -1,98 +1,140 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Catálogo ZSTD por la comunidad PS5 jailbreak 1.xx 14.10 en español</title>
+
 <style>
-  :root {
-    --bg: #0d1220; --panel: #151b2c; --line: #263047; --text: #e8ecf5;
-    --muted: #8b95ad; --accent: #4f8cff; --tag-bg: #17294d; --tag-text: #8fb4ff;
-    --tag2-bg: #123a33; --tag2-text: #5fd6b4;
+:root {
+  --bg: #0d1220; --panel: #151b2c; --line: #263047; --text: #e8ecf5;
+  --muted: #8b95ad; --accent: #4f8cff; --tag-bg: #17294d; --tag-text: #8fb4ff;
+  --tag2-bg: #123a33; --tag2-text: #5fd6b4;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f2f4f9; --panel: #ffffff; --line: #d9deea; --text: #18202f;
+    --muted: #5f6a82; --accent: #2a64d6; --tag-bg: #e3ecff; --tag-text: #2a5bc4;
+    --tag2-bg: #dff5ee; --tag2-text: #11785f;
   }
-  @media (prefers-color-scheme: light) {
-    :root:not([data-theme="dark"]) {
-      --bg: #f2f4f9; --panel: #ffffff; --line: #d9deea; --text: #18202f;
-      --muted: #5f6a82; --accent: #2a64d6; --tag-bg: #e3ecff; --tag-text: #2a5bc4;
-      --tag2-bg: #dff5ee; --tag2-text: #11785f;
-    }
-  }
-  * { box-sizing: border-box; }
-  html { color-scheme: dark light; }
-  body {
-    margin: 0; background: var(--bg); color: var(--text);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    padding: 16px;
-  }
-header { max-width: 1500px; margin: 0 auto 16px; padding-bottom: 14px; border-bottom: 1px solid var(--line);
-         display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+}
+* { box-sizing: border-box; }
+html { color-scheme: dark light; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  padding: 16px;
+}
+header {
+  max-width: 1500px; margin: 0 auto 16px; padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+  display: flex; justify-content: space-between;
+  align-items: center; gap: 12px; flex-wrap: wrap;
+}
 header h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: .3px; }
 header p { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
 .brand { display: flex; align-items: center; gap: 14px; }
-.brand img { height: 72px; width: auto; max-width: 200px; object-fit: contain; display: block; }
+.brand img {
+  height: 72px; width: auto; max-width: 200px;
+  object-fit: contain; display: block;
+}
 .count { color: var(--text); font-weight: 600; }
-.fb-btn { background: var(--accent); color: #fff; text-decoration: none; font-size: 14px; font-weight: 600;
-          padding: 9px 16px; border-radius: 8px; transition: opacity .15s; }
+.fb-btn {
+  background: var(--accent); color: #fff; text-decoration: none;
+  font-size: 14px; font-weight: 600; padding: 9px 16px;
+  border-radius: 8px; transition: opacity .15s;
+}
 .fb-btn:hover { opacity: .85; }
-  .bar { display: grid; grid-template-columns: 1fr minmax(0, 420px) 1fr; gap: 10px; align-items: center; max-width: 1500px; margin: 0 auto 18px; }
-  input, button {
-    background: var(--panel); color: var(--text); border: 1px solid var(--line);
-    border-radius: 8px; padding: 8px 10px; font: inherit; font-size: 13px;
-  }
-  input { grid-column: 2; width: 100%; }
-  #view { grid-column: 3; justify-self: end; }
-  button { cursor: pointer; }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .grid {
-    max-width: 1500px; margin: 0 auto; display: grid; gap: 18px;
-    grid-template-columns: repeat(6, 1fr);
-  }
-  @media (max-width: 1100px) { .grid { grid-template-columns: repeat(4, 1fr); } }
-  @media (max-width: 800px)  { .grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 560px)  { .grid { grid-template-columns: repeat(2, 1fr); } }
-  .card {
-    display: block; background: var(--panel); border: 1px solid var(--line);
-    border-radius: 10px; overflow: hidden; color: inherit; text-decoration: none;
-    transition: border-color .15s, transform .15s;
-  }
-  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .cover { position: relative; aspect-ratio: 3 / 4; background-size: cover; background-position: center; }
-  .cover .initials {
-    position: absolute; inset: 0; display: grid; place-items: center;
-    font-size: 44px; font-weight: 700; color: rgba(255,255,255,.85); letter-spacing: 1px;
-  }
-  .chip {
-    position: absolute; bottom: 8px; font-size: 11px; font-weight: 700; color: #fff;
-    background: rgba(0,0,0,.65); padding: 2px 7px; border-radius: 5px;
-  }
-  .chip.size { left: 8px; } .chip.ver { right: 8px; }
-  .info { padding: 10px 12px 12px; }
-  .title { font-size: 14px; font-weight: 700; margin: 0 0 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .id { font-size: 12px; color: var(--muted); margin: 0 0 8px; }
-  .tags { display: flex; flex-wrap: wrap; gap: 5px; }
-  .tag { font-size: 11px; padding: 2px 8px; border-radius: 6px; background: var(--tag-bg); color: var(--tag-text); border: 1px solid var(--line); }
-  .tag.alt { background: var(--tag2-bg); color: var(--tag2-text); }
-  /* list view */
-  .grid.list { grid-template-columns: 1fr; gap: 10px; }
-  .grid.list .card { display: flex; }
-  .grid.list .cover { width: 72px; aspect-ratio: 1; flex: none; }
-  .grid.list .initials { font-size: 22px; }
-  .grid.list .chip { display: none; }
-  .grid.list .info { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
-  .empty { grid-column: 1 / -1; text-align: center; color: var(--muted); padding: 40px 0; }
-  @media (max-width: 600px) { .bar { grid-template-columns: 1fr auto; } input { grid-column: 1; } #view { grid-column: 2; } }
-    @media (max-width: 600px) {
-    header { gap: 10px; }
-    header h1 { font-size: 20px; }
-    header p { font-size: 12px; }
-    .brand { gap: 10px; }
-    .brand img { height: 80px !important; max-width: 96px; }
-    .fb-btn { padding: 7px 12px; font-size: 13px; }
-  }
+
+.bar {
+  display: grid; grid-template-columns: 1fr minmax(0, 420px) 1fr;
+  gap: 10px; align-items: center; max-width: 1500px; margin: 0 auto 18px;
+}
+input, button {
+  background: var(--panel); color: var(--text); border: 1px solid var(--line);
+  border-radius: 8px; padding: 8px 10px; font: inherit; font-size: 13px;
+}
+input { grid-column: 2; width: 100%; }
+#view { grid-column: 3; justify-self: end; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.grid {
+  max-width: 1500px; margin: 0 auto; display: grid; gap: 18px;
+  grid-template-columns: repeat(6, 1fr);
+}
+@media (max-width: 1100px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 800px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 560px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+
+.card {
+  display: block; background: var(--panel); border: 1px solid var(--line);
+  border-radius: 10px; overflow: hidden; color: inherit; text-decoration: none;
+  transition: border-color .15s, transform .15s;
+}
+.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.cover {
+  position: relative; aspect-ratio: 3 / 4;
+  background-size: cover; background-position: center;
+}
+.cover .initials {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-size: 44px; font-weight: 700;
+  color: rgba(255,255,255,.85); letter-spacing: 1px;
+}
+.chip {
+  position: absolute; bottom: 8px; font-size: 11px;
+  font-weight: 700; color: #fff; background: rgba(0,0,0,.65);
+  padding: 2px 7px; border-radius: 5px;
+}
+.chip.size { left: 8px; }
+.chip.ver { right: 8px; }
+.info { padding: 10px 12px 12px; }
+.title {
+  font-size: 14px; font-weight: 700; margin: 0 0 2px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.id { font-size: 12px; color: var(--muted); margin: 0 0 8px; }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.tag {
+  font-size: 11px; padding: 2px 8px; border-radius: 6px;
+  background: var(--tag-bg); color: var(--tag-text);
+  border: 1px solid var(--line);
+}
+.tag.alt { background: var(--tag2-bg); color: var(--tag2-text); }
+
+/* List view */
+.grid.list { grid-template-columns: 1fr; gap: 10px; }
+.grid.list .card { display: flex; }
+.grid.list .cover { width: 72px; aspect-ratio: 1; flex: none; }
+.grid.list .initials { font-size: 22px; }
+.grid.list .chip { display: none; }
+.grid.list .info {
+  display: flex; flex-direction: column;
+  justify-content: center; min-width: 0;
+}
+.empty {
+  grid-column: 1 / -1; text-align: center;
+  color: var(--muted); padding: 40px 0;
+}
+
+@media (max-width: 600px) {
+  .bar { grid-template-columns: 1fr auto; }
+  input { grid-column: 1; }
+  #view { grid-column: 2; }
+  header { gap: 10px; }
+  header h1 { font-size: 20px; }
+  header p { font-size: 12px; }
+  .brand { gap: 10px; }
+  .brand img { height: 80px !important; max-width: 96px; }
+  .fb-btn { padding: 7px 12px; font-size: 13px; }
+}
 </style>
 </head>
+
 <body>
-  
+
 <header>
   <div class="brand">
     <img id="logo" src="Covers/logo.png" alt="Logo">
@@ -113,87 +155,129 @@ header p { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
 <main class="grid" id="grid"></main>
 
 <script>
+
 /* ============ EDITA TUS JUEGOS AQUÍ ============
    title   : nombre que se muestra en la tarjeta
    id      : cualquier ID que quieras
    version : se muestra arriba a la derecha de la portada
    size    : se muestra abajo a la izquierda de la portada
-   image   : ruta o URL de la portada (opcional; si está vacío se crea un color con iniciales)
-   link    : a dónde lleva la tarjeta al hacer clic
+   image   : ruta o URL de la portada (opcional)
+   links   : ARRAY de enlaces que se abrirán al hacer clic
    tags    : etiquetas pequeñas bajo el ID (empieza con "alt:" para el estilo verde)
-*/
-const ITEMS = [
-  { title: "God of War: Sons of Sparta", id: "PPSA28997", version: "v01.008.001", size: "8.0 GB",
-    image: "Covers/gow-sons.avif", link: "https://gofile.io/d/moHevfwy", tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @yared_cf"] },
-  { title: "Marvel's Spider-Man: Remastered", id: "PPSA01467", version: "v01.008.001", size: "66.6 GB",
-    image: "Covers/spiderman-remastered.avif", link: "https://vik1ngfile.site/f/Ms9VvjacNM", tags: ["ampr-emu-ng v0.3.3", "1.00+", "Creditos: @yared_cf"] },
-  { title: "Marvel's Spider-Man 2", id: "PPSA03016", version: "v01.004.003", size: "106.38 GB",
-    image: "Covers/spiderman-2.avif", link: "https://vik1ngfile.site/f/k1OqDK1mom", tags: ["ampr-emu-ng v0.3.3", "4.00+", "Creditos: @yared_cf"] },
-  { title: "God of War Ragnarök", id: "PPSA08329", version: "v06.006.000", size: "108.39 GB",
-    image: "Covers/gow-ragnarok.avif", link: "https://vik1ngfile.site/f/QSi653U6XF#PPSA08329", tags: ["ampr-emu-ng v0.3.3", "4.00+", "Creditos: Gabriel Marin"] },
-  { title: "Indiana Jones and the Great Circle", id: "PPSA26786", version: "v01.001.005", size: "152.89 GB",
-    image: "Covers/indiana.jpg", link: "https://vik1ngfile.site/f/bAa5SOsICA#[Indiana%20Jones%20and%20The%20Great%20Circle]%20-%20[PPSA26786].rar", tags: ["ampr-emu-ng v0.3.3", "4.00+", "Creditos: Rumpell"] },
-  { title: "Borderlands 4", id: "PPSA01494", version: "v01.003.001", size: "42.6 GB",
-    image: "Covers/borderlands4.webp", link: "https://welinkly.com/yaredcf/borderlands4", tags: ["ampr-emu-ng v0.3.3", "10.xx+", "Creditos: Eber Collí Canul"] },
-  { title: "MADiSON", id: "PPSA07370", version: "v01.000", size: "3.77 GB",
-    image: "Covers/madison.avif", link: "https://vik1ngfile.site/f/7aTpsCY7JC#[MADiSON]", tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @G_O_J_19"] },
-  { title: "Pac-Man World 2 Re-Pac", id: "PPSA18189", version: "v01.004", size: "4.93 GB",
-    image: "Covers/pacman.jpg", link: "https://vik1ngfile.site/f/s8Tpv61fPr", tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: Sebastian"] },
-  { title: "EA SPORTS FC 27", id: "PPSA34015", version: "v1.004", size: "84.87 GB",
-    image: "Covers/PPSA34015.jpg", link: "https://vik1ngfile.site/f/pZ2hVK7gzU", tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @RafaelJFonseca"] },
-  { title: "FINAL FANTASY TACTICS - The Ivalice Chronicles", id: "PPSA21783", version: "v1.40", size: "6.80 GB",
-    image: "Covers/PPSA21783.jpg", link: "https://vik1ngfile.site/f/dBa1Myzt2B#FINAL", tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @RafaelJFonseca"] },
-  { title: "Castlevania: Belmont's Curse", id: "PPSA35399", version: "v01.00", size: "3.65 GB",
-    image: "Covers/PPSA35399.avif", link: "https://vik1ngfile.site/f/1ATYYaXvRU#Castlevania", tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @RafaelJFonseca"] },
-  { title: "Cronos: The New Dawn", id: "PPSA24096", version: "v01.010", size: "20.43 GB",
-    image: "Covers/PPSA24096.png", link: "https://vik1ngfile.site/f/NyLfVpHcqO#Cronos", tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @RafaelJFonseca"] },
-  { title: "Grand Theft Auto V", id: "PPSA04263", version: "v01.010.002", size: "93.36 GB",
-    image: "Covers/PPSA04263.jpg", link: "https://vik1ngfile.site/f/yz6O4vWMzq#PPSA04263-app0.rar", tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @Jobsitos"] },
-  { title: "007 First Light", id: "PPSA11386", version: "v1.018", size: "50.23 GB",
-    image: "Covers/PPSA11386.jpg", link: "https://vik1ngfile.site/f/7exAyPg3rN#[007", tags: ["ampr-emu-ng v0.3.3", "12.xx+", "Creditos: @RafaelJFonseca"] },
-  { title: "Silent Hill f", id: "PPSA21159", version: "v01.001", size: "35.70 GB",
-    image: "Covers/PPSA21159.jpg", link: "https://vik1ngfile.site/f/siFH78WHoN#[SILENT", tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @G_O_J_19"] },
-  { title: "Marvel's Wolverine", id: "PPSA03671", version: "01.001.005", size: "100.28 GB",
-    image: "Covers/PPSA03671.webp", link: "https://vik1ngfile.site/f/dLeYxL5iD5", tags: ["ampr-emu-ng v0.3.4", "4.xx+", "Creditos: Gabriel Marin"] },
-  { title: "EA Sports UFC 6", id: "PPSA23566", version: "v1.005", size: "69.12 GB",
-    image: "Covers/PPSA23566.jpg", link: "https://welinkly.com/yaredcf/easportsufc6", tags: ["ampr-emu-ng v0.3.3", "12.xx+", "Creditos: Senku"] },
-  { title: "Pragmata", id: "PPSA02530", version: "v01.300.000", size: "32.96 GB",
-    image: "Covers/PPSA02530.jpg", link: "https://vik1ngfile.site/f/JfKVrhbMNs#[PRAGMATA]", tags: ["ampr-emu-ng v0.3.3", "12.xx+", "Creditos: @G_O_J_19"] },
-  { title: "The Rogue Prince of Persia", id: "PPSA28155", version: "v01.006.000", size: "788.44 MB",
-    image: "Covers/PPSA28155.jpg", link: "https://vik1ngfile.site/f/dcKIhXHfr1", tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @DaxCyc"] },
-  { title: "Hades II", id: "PPSA36082", version: "v01.006.000", size: "7.85 GB",
-    image: "Covers/PPSA36082.avif", link: "https://vik1ngfile.site/f/TK494bpKBv", tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @DaxCyc"] },
-  { title: "REANIMAL", id: "PPSA23372", version: "v01.000.012", size: "12.60 GB",
-    image: "Covers/PPSA23372.jpg", link: "https://vik1ngfile.site/f/iEqKyBZg6U", tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: Oslo"] },
-  { title: "The Last of Us™ Part I", id: "PPSA03396", version: "v02.000.000", size: "76.11 GB",
-    image: "Covers/PPSA03396.jpg", link: "https://vik1ngfile.site/f/XgJmTFWeiR", tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: Gabriel Marin"] },
-  { title: "Assassin's Creed Mirage", id: "PPSA07230", version: "v01.012.000", size: "60.9 GB",
-    image: "Covers/PPSA07230.avif", link: "https://vik1ngfile.site/f/CjhsT3EEwI", tags: ["ampr-emu-ng v0.3.3", "9.xx+", "Creditos: @modehone"] },
-  { title: "Ratatan", id: "PPSA34884", version: "v01.000.006", size: "1.77 GB",
-    image: "Covers/PPSA34884.jpg", link: "https://vik1ngfile.site/f/VeDCiL9iAK", tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: AxlFuy"] },
-  { title: "Tennis World Tour 2", id: "PPSA02019", version: "v01.000.007", size: "14.03 GB",
-    image: "Covers/PPSA02019.jpg", link: "https://vik1ngfile.site/f/wDvJA4kHQ5#ZSTD-[Tennis", tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: Pablo Contreras T"] },
-  { title: "The Last of Us™ Part II Remastered", id: "PPSA10662", version: "v01.002.000", size: "93.2 GB",
-    image: "Covers/PPSA10662.jpg", link: "https://gofile.io/d/DctoR96v", tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: Javier Herrera"] },
-  { title: "Marvel's Spider-Man Miles Morales", id: "PPSA01411", version: "v01.015.001", size: "51.89 GB",
-    image: "Covers/PPSA01411.jpg", link: "https://vik1ngfile.site/f/iXaAzHFGdV", tags: ["ampr-emu-ng v0.3.3", "5.xx+", "Creditos: Gabriel Marin"] },
-  { title: "The Blood of Dawnwalker", id: "PPSA28000", version: "v01.005", size: "46.23 GB",
-    image: "Covers/PPSA28000.jpg", link: "https://vik1ngfile.site/f/crOQ7bGAAW", tags: ["ampr-emu-ng v0.3.4", "4.xx+", "Creditos: AxlFuy"] },
-  { title: "The Legend of Heroes Trails from Zero", id: "PPSA36136", version: "v01.005.005", size: "3.94GB",
-    image: "Covers/PPSA36136.jpg", link: "https://vik1ngfile.site/f/A0HJ0cqmEd#[The", tags: ["ampr-emu-ng v0.3.4", "12.xx+", "Creditos: PSXJowie"] },
-  { title: "The Legend of Heroes Trails to Azure", id: "PPSA36140", version: "v01.002.005", size: "6.64 GB",
-    image: "Covers/PPSA36140.jpg", link: "https://vik1ngfile.site/f/4YkYKxPiIA#[The", tags: ["ampr-emu-ng v0.3.4", "12.xx+", "Creditos: PSXJowie"] },
-  { title: "New Joe & Mac: Caveman Ninja", id: "PPSA02801", version: "v01.003", size: "703.55 MB",
-    image: "Covers/PPSA02801.jpg", link: "https://vik1ngfile.site/f/TIiKgd0HRd", tags: ["ampr-emu-ng v0.3.4", "5.xx+", "Creditos: @Bixin79"] },
-  { title: "ASTRO BOT", id: "PPSA21567", version: "01.018.000", size: "39.58 GB",
-    image: "Covers/PPSA21567.avif", link: "https://welinkly.com/yaredcf/astroot", tags: ["ampr-emu-ng v0.3.4", "4.xx+", "Creditos: @rbustosm"] },
-  { title: "Metaphor: ReFantazio", id: "PPSA20800", version: "v01.013", size: "42.47 GB",
-    image: "Covers/PPSA20800.jpg", link: "https://vik1ngfile.site/f/749Ebyrtlr", tags: ["ampr-emu-ng v0.3.4", "4.xx+", "Creditos: Poncho"] },
-  { title: "Metaphor: ReFantazio", id: "PPSA20800", version: "v01.013", size: "42.47 GB",
-    image: "Covers/PPSA20800.jpg", link: "https://vik1ngfile.site/f/749Ebyrtlr", tags: ["ampr-emu-ng v0.3.4", "4.xx+", "Creditos: Poncho"] },
 
+   EJEMPLO DE UN ENLACE:
+   links: ["https://test.com"]
+
+   EJEMPLO DE DOS ENLACES:
+   links: ["https://test.com", "https://test2.com"]
+*/
+
+const ITEMS = [
+
+  { title: "God of War: Sons of Sparta", id: "PPSA28997", version: "v01.008.001", size: "8.0 GB",
+    image: "Covers/gow-sons.avif", links: ["https://gofile.io/d/moHevfwy"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @yared_cf"] },
+
+  { title: "Marvel's Spider-Man: Remastered", id: "PPSA01467", version: "v01.008.001", size: "66.6 GB",
+    image: "Covers/spiderman-remastered.avif", links: ["https://vik1ngfile.site/f/Ms9VvjacNM"], tags: ["ampr-emu-ng v0.3.3", "1.00+", "Creditos: @yared_cf"] },
+
+  { title: "Marvel's Spider-Man 2", id: "PPSA03016", version: "v01.004.003", size: "106.38 GB",
+    image: "Covers/spiderman-2.avif", links: ["https://vik1ngfile.site/f/k1OqDK1mom"], tags: ["ampr-emu-ng v0.3.3", "4.00+", "Creditos: @yared_cf"] },
+
+  { title: "God of War Ragnarök", id: "PPSA08329", version: "v06.006.000", size: "108.39 GB",
+    image: "Covers/gow-ragnarok.avif", links: ["https://vik1ngfile.site/f/QSi653U6XF#PPSA08329"], tags: ["ampr-emu-ng v0.3.3", "4.00+", "Creditos: Gabriel Marin"] },
+
+  { title: "Indiana Jones and the Great Circle", id: "PPSA26786", version: "v01.001.005", size: "152.89 GB",
+    image: "Covers/indiana.jpg", links: ["https://vik1ngfile.site/f/bAa5SOsICA#[Indiana%20Jones%20and%20The%20Great%20Circle]%20-%20[PPSA26786].rar"], tags: ["ampr-emu-ng v0.3.3", "4.00+", "Creditos: Rumpell"] },
+
+  { title: "Borderlands 4", id: "PPSA01494", version: "v01.003.001", size: "42.6 GB",
+    image: "Covers/borderlands4.webp", links: ["https://welinkly.com/yaredcf/borderlands4"], tags: ["ampr-emu-ng v0.3.3", "10.xx+", "Creditos: Eber Collí Canul"] },
+
+  { title: "MADiSON", id: "PPSA07370", version: "v01.000", size: "3.77 GB",
+    image: "Covers/madison.avif", links: ["https://vik1ngfile.site/f/7aTpsCY7JC#[MADiSON]"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @G_O_J_19"] },
+
+  { title: "Pac-Man World 2 Re-Pac", id: "PPSA18189", version: "v01.004", size: "4.93 GB",
+    image: "Covers/pacman.jpg", links: ["https://vik1ngfile.site/f/s8Tpv61fPr"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: Sebastian"] },
+
+  { title: "EA SPORTS FC 27", id: "PPSA34015", version: "v1.004", size: "84.87 GB",
+    image: "Covers/PPSA34015.jpg", links: ["https://vik1ngfile.site/f/pZ2hVK7gzU"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @RafaelJFonseca"] },
+
+  { title: "FINAL FANTASY TACTICS - The Ivalice Chronicles", id: "PPSA21783", version: "v1.40", size: "6.80 GB",
+    image: "Covers/PPSA21783.jpg", links: ["https://vik1ngfile.site/f/dBa1Myzt2B#FINAL"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @RafaelJFonseca"] },
+
+  { title: "Castlevania: Belmont's Curse", id: "PPSA35399", version: "v01.00", size: "3.65 GB",
+    image: "Covers/PPSA35399.avif", links: ["https://vik1ngfile.site/f/1ATYYaXvRU#Castlevania"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @RafaelJFonseca"] },
+
+  { title: "Cronos: The New Dawn", id: "PPSA24096", version: "v01.010", size: "20.43 GB",
+    image: "Covers/PPSA24096.png", links: ["https://vik1ngfile.site/f/NyLfVpHcqO#Cronos"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @RafaelJFonseca"] },
+
+  { title: "Grand Theft Auto V", id: "PPSA04263", version: "v01.010.002", size: "93.36 GB",
+    image: "Covers/PPSA04263.jpg", links: ["https://vik1ngfile.site/f/yz6O4vWMzq#PPSA04263-app0.rar"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @Jobsitos"] },
+
+  { title: "007 First Light", id: "PPSA11386", version: "v1.018", size: "50.23 GB",
+    image: "Covers/PPSA11386.jpg", links: ["https://vik1ngfile.site/f/7exAyPg3rN#[007"], tags: ["ampr-emu-ng v0.3.3", "12.xx+", "Creditos: @RafaelJFonseca"] },
+
+  { title: "Silent Hill f", id: "PPSA21159", version: "v01.001", size: "35.70 GB",
+    image: "Covers/PPSA21159.jpg", links: ["https://vik1ngfile.site/f/siFH78WHoN#[SILENT"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @G_O_J_19"] },
+
+  { title: "Marvel's Wolverine", id: "PPSA03671", version: "01.001.005", size: "100.28 GB",
+    image: "Covers/PPSA03671.webp", links: ["https://vik1ngfile.site/f/dLeYxL5iD5"], tags: ["ampr-emu-ng v0.3.4", "4.xx+", "Creditos: Gabriel Marin"] },
+
+  { title: "EA Sports UFC 6", id: "PPSA23566", version: "v1.005", size: "69.12 GB",
+    image: "Covers/PPSA23566.jpg", links: ["https://vik1ngfile.site/f/4AWSpm4w12", "https://vik1ngfile.site/f/3Nnj6cmzPa", "https://vik1ngfile.site/f/9nckmH6C0X", "https://vik1ngfile.site/f/Z3HitoMfcT", "https://vik1ngfile.site/f/mFEhwq0Zkj", "https://vik1ngfile.site/f/4blieJ0cqV", "https://vik1ngfile.site/f/Wg1lpBTUVB"], tags: ["ampr-emu-ng v0.3.3", "12.xx+", "Creditos: Senku"] },
+
+  { title: "Pragmata", id: "PPSA02530", version: "v01.300.000", size: "32.96 GB",
+    image: "Covers/PPSA02530.jpg", links: ["https://vik1ngfile.site/f/JfKVrhbMNs#[PRAGMATA]"], tags: ["ampr-emu-ng v0.3.3", "12.xx+", "Creditos: @G_O_J_19"] },
+
+  { title: "The Rogue Prince of Persia", id: "PPSA28155", version: "v01.006.000", size: "788.44 MB",
+    image: "Covers/PPSA28155.jpg", links: ["https://vik1ngfile.site/f/dcKIhXHfr1"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @DaxCyc"] },
+
+  { title: "Hades II", id: "PPSA36082", version: "v01.006.000", size: "7.85 GB",
+    image: "Covers/PPSA36082.avif", links: ["https://vik1ngfile.site/f/TK494bpKBv"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @DaxCyc"] },
+
+  { title: "REANIMAL", id: "PPSA23372", version: "v01.000.012", size: "12.60 GB",
+    image: "Covers/PPSA23372.jpg", links: ["https://vik1ngfile.site/f/iEqKyBZg6U"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: Oslo"] },
+
+  { title: "The Last of Us™ Part I", id: "PPSA03396", version: "v02.000.000", size: "76.11 GB",
+    image: "Covers/PPSA03396.jpg", links: ["https://vik1ngfile.site/f/XgJmTFWeiR"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: Gabriel Marin"] },
+
+  { title: "Assassin's Creed Mirage", id: "PPSA07230", version: "v01.012.000", size: "60.9 GB",
+    image: "Covers/PPSA07230.avif", links: ["https://vik1ngfile.site/f/CjhsT3EEwI"], tags: ["ampr-emu-ng v0.3.3", "9.xx+", "Creditos: @modehone"] },
+
+  { title: "Ratatan", id: "PPSA34884", version: "v01.000.006", size: "1.77 GB",
+    image: "Covers/PPSA34884.jpg", links: ["https://vik1ngfile.site/f/VeDCiL9iAK"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: AxlFuy"] },
+
+  { title: "Tennis World Tour 2", id: "PPSA02019", version: "v01.000.007", size: "14.03 GB",
+    image: "Covers/PPSA02019.jpg", links: ["https://vik1ngfile.site/f/wDvJA4kHQ5#ZSTD-[Tennis"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: Pablo Contreras T"] },
+
+  { title: "The Last of Us™ Part II Remastered", id: "PPSA10662", version: "v01.002.000", size: "93.2 GB",
+    image: "Covers/PPSA10662.jpg", links: ["https://gofile.io/d/DctoR96v"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: Javier Herrera"] },
+
+  { title: "Marvel's Spider-Man Miles Morales", id: "PPSA01411", version: "v01.015.001", size: "51.89 GB",
+    image: "Covers/PPSA01411.jpg", links: ["https://vik1ngfile.site/f/iXaAzHFGdV"], tags: ["ampr-emu-ng v0.3.3", "5.xx+", "Creditos: Gabriel Marin"] },
+
+  { title: "The Blood of Dawnwalker", id: "PPSA28000", version: "v01.005", size: "46.23 GB",
+    image: "Covers/PPSA28000.jpg", links: ["https://vik1ngfile.site/f/crOQ7bGAAW"], tags: ["ampr-emu-ng v0.3.4", "4.xx+", "Creditos: AxlFuy"] },
+
+  { title: "The Legend of Heroes Trails from Zero", id: "PPSA36136", version: "v01.005.005", size: "3.94GB",
+    image: "Covers/PPSA36136.jpg", links: ["https://vik1ngfile.site/f/A0HJ0cqmEd#[The"], tags: ["ampr-emu-ng v0.3.4", "12.xx+", "Creditos: PSXJowie"] },
+
+  { title: "The Legend of Heroes Trails to Azure", id: "PPSA36140", version: "v01.002.005", size: "6.64 GB",
+    image: "Covers/PPSA36140.jpg", links: ["https://vik1ngfile.site/f/4YkYKxPiIA#[The"], tags: ["ampr-emu-ng v0.3.4", "12.xx+", "Creditos: PSXJowie"] },
+
+  { title: "New Joe & Mac: Caveman Ninja", id: "PPSA02801", version: "v01.003", size: "703.55 MB",
+    image: "Covers/PPSA02801.jpg", links: ["https://vik1ngfile.site/f/TIiKgd0HRd"], tags: ["ampr-emu-ng v0.3.4", "5.xx+", "Creditos: @Bixin79"] },
+
+  { title: "ASTRO BOT", id: "PPSA21567", version: "01.018.000", size: "39.58 GB",
+    image: "Covers/PPSA21567.avif", links: ["https://welinkly.com/yaredcf/astroot"], tags: ["ampr-emu-ng v0.3.4", "4.xx+", "Creditos: @rbustosm"] },
+
+  { title: "Metaphor: ReFantazio", id: "PPSA20800", version: "v01.013", size: "42.47 GB",
+    image: "Covers/PPSA20800.jpg", links: ["https://vik1ngfile.site/f/749Ebyrtlr"], tags: ["ampr-emu-ng v0.3.4", "4.xx+", "Creditos: Poncho"] },
+
+  { title: "Metaphor: ReFantazio", id: "PPSA20800", version: "v01.013", size: "42.47 GB",
+    image: "Covers/PPSA20800.jpg", links: ["https://vik1ngfile.site/f/749Ebyrtlr"], tags: ["ampr-emu-ng v0.3.4", "4.xx+", "Creditos: Poncho"] }
 
 ];
+
 /* ============================================= */
 
 const grid = document.getElementById('grid');
@@ -205,55 +289,127 @@ function hue(str) {
   for (const c of str) h = (h * 31 + c.charCodeAt(0)) % 360;
   return h;
 }
+
 function esc(s) {
-  return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  return String(s ?? '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[c]));
 }
+
 function safeUrl(u) {
-  try { const p = new URL(u, location.href); return /^https?:$/.test(p.protocol) ? p.href : '#'; }
-  catch { return '#'; }
+  try {
+    const p = new URL(u, location.href);
+    return /^https?:$/.test(p.protocol) ? p.href : null;
+  } catch {
+    return null;
+  }
+}
+
+/* Opens every link belonging to the selected card */
+function openLinks(event, links) {
+  event.preventDefault();
+
+  if (!Array.isArray(links)) return;
+
+  links.forEach(link => {
+    const url = safeUrl(link);
+
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  });
 }
 
 function render() {
   const q = search.value.trim().toLowerCase();
+
   const list = ITEMS.filter(i =>
-    !q || i.title.toLowerCase().includes(q) || String(i.id).toLowerCase().includes(q)
+    !q || i.title.toLowerCase().includes(q) ||
+    String(i.id).toLowerCase().includes(q)
   );
-  if (!list.length) { grid.innerHTML = '<p class="empty">No hay resultados para tu búsqueda.</p>'; return; }
-  grid.innerHTML = list.map(i => {
+
+  if (!list.length) {
+    grid.innerHTML = '<p class="empty">No hay resultados para tu búsqueda.</p>';
+    return;
+  }
+
+  grid.innerHTML = list.map((i, index) => {
     const h = hue(i.title);
+
     const bg = i.image
       ? `background-image:url('${esc(i.image)}')`
       : `background-image:linear-gradient(160deg,hsl(${h} 55% 38%),hsl(${(h + 50) % 360} 60% 18%))`;
+
     const initials = i.image ? '' :
       `<span class="initials">${esc(i.title.split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase())}</span>`;
+
     const tags = (i.tags || []).map(t =>
-      t.startsWith('alt:') ? `<span class="tag alt">${esc(t.slice(4))}</span>` : `<span class="tag">${esc(t)}</span>`
+      t.startsWith('alt:')
+        ? `<span class="tag alt">${esc(t.slice(4))}</span>`
+        : `<span class="tag">${esc(t)}</span>`
     ).join('');
-    return `<a class="card" href="${esc(safeUrl(i.link))}" target="_blank" rel="noopener noreferrer">
-      <div class="cover" style="${bg}">${initials}
-        <span class="chip size">${esc(i.size)}</span><span class="chip ver">${esc(i.version)}</span>
-      </div>
-      <div class="info">
-        <p class="title" title="${esc(i.title)}">${esc(i.title)}</p>
-        <p class="id">${esc(i.id)}</p>
-        <div class="tags">${tags}</div>
-      </div></a>`;
+
+    return `
+      <a class="card" href="#" data-index="${index}">
+        <div class="cover" style="${bg}">
+          ${initials}
+          <span class="chip size">${esc(i.size)}</span>
+          <span class="chip ver">${esc(i.version)}</span>
+        </div>
+        <div class="info">
+          <p class="title" title="${esc(i.title)}">${esc(i.title)}</p>
+          <p class="id">${esc(i.id)}</p>
+          <div class="tags">${tags}</div>
+        </div>
+      </a>
+    `;
   }).join('');
+
+  // Attach click events to the newly rendered cards
+  grid.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', event => {
+      const index = Number(card.dataset.index);
+      const item = list[index];
+
+      if (item) {
+        openLinks(event, item.links);
+      }
+    });
+  });
 }
 
 search.addEventListener('input', render);
-viewBtn.addEventListener('click', () => grid.classList.toggle('list'));
+
+viewBtn.addEventListener('click', () => {
+  grid.classList.toggle('list');
+});
+
 const n = ITEMS.length;
-document.getElementById('count').textContent = n + (n === 1 ? ' Juego' : ' Juegos');
+
+document.getElementById('count').textContent =
+  n + (n === 1 ? ' Juego' : ' Juegos');
+
 render();
+
 const logo = document.getElementById('logo');
 const brandText = document.getElementById('brand-text');
-function fitLogo() { logo.style.height = brandText.offsetHeight + 'px'; }
+
+function fitLogo() {
+  logo.style.height = brandText.offsetHeight + 'px';
+}
+
 logo.addEventListener('load', fitLogo);
 logo.addEventListener('error', () => logo.remove());
+
 window.addEventListener('load', fitLogo);
 window.addEventListener('resize', fitLogo);
+
 fitLogo();
+
 </script>
 </body>
 </html>
