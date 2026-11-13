@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -104,6 +103,53 @@ button { cursor: pointer; }
 }
 .tag.alt { background: var(--tag2-bg); color: var(--tag2-text); }
 
+/* Selector de enlaces */
+.link-selector {
+  position: fixed;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  min-width: 145px;
+  max-width: 220px;
+  padding: 6px;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.4);
+  animation: menuAppear .12s ease-out;
+}
+
+@keyframes menuAppear {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.link-selector .menu-title {
+  padding: 7px 10px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.link-selector a {
+  display: block;
+  padding: 9px 10px;
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 13px;
+  transition: background .15s;
+}
+
+.link-selector a:hover,
+.link-selector a:focus-visible {
+  background: var(--tag-bg);
+  color: var(--accent);
+}
+
 /* List view */
 .grid.list { grid-template-columns: 1fr; gap: 10px; }
 .grid.list .card { display: flex; }
@@ -159,122 +205,127 @@ button { cursor: pointer; }
 /* ============ EDITA TUS JUEGOS AQUÍ ============
    title   : nombre que se muestra en la tarjeta
    id      : cualquier ID que quieras
-   version : se muestra arriba a la derecha de la portada
-   size    : se muestra abajo a la izquierda de la portada
+   version : versión del juego
+   size    : tamaño del juego
    image   : ruta o URL de la portada (opcional)
-   links   : ARRAY de enlaces que se abrirán al hacer clic
-   tags    : etiquetas pequeñas bajo el ID (empieza con "alt:" para el estilo verde)
+   links   : ARRAY de enlaces
+   ampr    : versión de ampr-emu-ng
+   backport: versión mínima de firmware
+   credits : nombre o usuario del colaborador
 
-   EJEMPLO DE UN ENLACE:
+   Un solo enlace:
    links: ["https://test.com"]
 
-   EJEMPLO DE DOS ENLACES:
+   Varios enlaces:
    links: ["https://test.com", "https://test2.com"]
+
+   Si hay un enlace, se abre directamente.
+   Si hay varios, aparece un selector para elegir.
 */
 
 const ITEMS = [
 
   { title: "God of War: Sons of Sparta", id: "PPSA28997", version: "v01.008.001", size: "8.0 GB",
-    image: "Covers/gow-sons.avif", links: ["https://gofile.io/d/moHevfwy"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @yared_cf"] },
+    image: "Covers/gow-sons.avif", links: ["https://gofile.io/d/moHevfwy"], ampr: "v0.3.3", backport: "4.xx+", credits: "@yared_cf" },
 
   { title: "Marvel's Spider-Man: Remastered", id: "PPSA01467", version: "v01.008.001", size: "66.6 GB",
-    image: "Covers/spiderman-remastered.avif", links: ["https://vik1ngfile.site/f/Ms9VvjacNM"], tags: ["ampr-emu-ng v0.3.3", "1.00+", "Creditos: @yared_cf"] },
+    image: "Covers/spiderman-remastered.avif", links: ["https://vik1ngfile.site/f/Ms9VvjacNM"], ampr: "v0.3.3", backport: "1.00+", credits: "@yared_cf" },
 
   { title: "Marvel's Spider-Man 2", id: "PPSA03016", version: "v01.004.003", size: "106.38 GB",
-    image: "Covers/spiderman-2.avif", links: ["https://vik1ngfile.site/f/k1OqDK1mom"], tags: ["ampr-emu-ng v0.3.3", "4.00+", "Creditos: @yared_cf"] },
+    image: "Covers/spiderman-2.avif", links: ["https://vik1ngfile.site/f/k1OqDK1mom"], ampr: "v0.3.3", backport: "4.00+", credits: "@yared_cf" },
 
   { title: "God of War Ragnarök", id: "PPSA08329", version: "v06.006.000", size: "108.39 GB",
-    image: "Covers/gow-ragnarok.avif", links: ["https://vik1ngfile.site/f/QSi653U6XF#PPSA08329"], tags: ["ampr-emu-ng v0.3.3", "4.00+", "Creditos: Gabriel Marin"] },
+    image: "Covers/gow-ragnarok.avif", links: ["https://vik1ngfile.site/f/QSi653U6XF#PPSA08329"], ampr: "v0.3.3", backport: "4.00+", credits: "Gabriel Marin" },
 
   { title: "Indiana Jones and the Great Circle", id: "PPSA26786", version: "v01.001.005", size: "152.89 GB",
-    image: "Covers/indiana.jpg", links: ["https://vik1ngfile.site/f/bAa5SOsICA#[Indiana%20Jones%20and%20The%20Great%20Circle]%20-%20[PPSA26786].rar"], tags: ["ampr-emu-ng v0.3.3", "4.00+", "Creditos: Rumpell"] },
+    image: "Covers/indiana.jpg", links: ["https://vik1ngfile.site/f/bAa5SOsICA#[Indiana%20Jones%20and%20The%20Great%20Circle]%20-%20[PPSA26786].rar"], ampr: "v0.3.3", backport: "4.00+", credits: "Rumpell" },
 
   { title: "Borderlands 4", id: "PPSA01494", version: "v01.003.001", size: "42.6 GB",
-    image: "Covers/borderlands4.webp", links: ["https://welinkly.com/yaredcf/borderlands4"], tags: ["ampr-emu-ng v0.3.3", "10.xx+", "Creditos: Eber Collí Canul"] },
+    image: "Covers/borderlands4.webp", links: ["https://welinkly.com/yaredcf/borderlands4"], ampr: "v0.3.3", backport: "10.xx+", credits: "Eber Collí Canul" },
 
   { title: "MADiSON", id: "PPSA07370", version: "v01.000", size: "3.77 GB",
-    image: "Covers/madison.avif", links: ["https://vik1ngfile.site/f/7aTpsCY7JC#[MADiSON]"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @G_O_J_19"] },
+    image: "Covers/madison.avif", links: ["https://vik1ngfile.site/f/7aTpsCY7JC#[MADiSON]"], ampr: "v0.3.3", backport: "4.xx+", credits: "@G_O_J_19" },
 
   { title: "Pac-Man World 2 Re-Pac", id: "PPSA18189", version: "v01.004", size: "4.93 GB",
-    image: "Covers/pacman.jpg", links: ["https://vik1ngfile.site/f/s8Tpv61fPr"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: Sebastian"] },
+    image: "Covers/pacman.jpg", links: ["https://vik1ngfile.site/f/s8Tpv61fPr"], ampr: "v0.3.3", backport: "4.xx+", credits: "Sebastian" },
 
   { title: "EA SPORTS FC 27", id: "PPSA34015", version: "v1.004", size: "84.87 GB",
-    image: "Covers/PPSA34015.jpg", links: ["https://vik1ngfile.site/f/pZ2hVK7gzU"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @RafaelJFonseca"] },
+    image: "Covers/PPSA34015.jpg", links: ["https://vik1ngfile.site/f/pZ2hVK7gzU"], ampr: "v0.3.3", backport: "4.xx+", credits: "@RafaelJFonseca" },
 
   { title: "FINAL FANTASY TACTICS - The Ivalice Chronicles", id: "PPSA21783", version: "v1.40", size: "6.80 GB",
-    image: "Covers/PPSA21783.jpg", links: ["https://vik1ngfile.site/f/dBa1Myzt2B#FINAL"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @RafaelJFonseca"] },
+    image: "Covers/PPSA21783.jpg", links: ["https://vik1ngfile.site/f/dBa1Myzt2B#FINAL"], ampr: "v0.3.3", backport: "4.xx+", credits: "@RafaelJFonseca" },
 
   { title: "Castlevania: Belmont's Curse", id: "PPSA35399", version: "v01.00", size: "3.65 GB",
-    image: "Covers/PPSA35399.avif", links: ["https://vik1ngfile.site/f/1ATYYaXvRU#Castlevania"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @RafaelJFonseca"] },
+    image: "Covers/PPSA35399.avif", links: ["https://vik1ngfile.site/f/1ATYYaXvRU#Castlevania"], ampr: "v0.3.3", backport: "4.xx+", credits: "@RafaelJFonseca" },
 
   { title: "Cronos: The New Dawn", id: "PPSA24096", version: "v01.010", size: "20.43 GB",
-    image: "Covers/PPSA24096.png", links: ["https://vik1ngfile.site/f/NyLfVpHcqO#Cronos"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @RafaelJFonseca"] },
+    image: "Covers/PPSA24096.png", links: ["https://vik1ngfile.site/f/NyLfVpHcqO#Cronos"], ampr: "v0.3.3", backport: "4.xx+", credits: "@RafaelJFonseca" },
 
   { title: "Grand Theft Auto V", id: "PPSA04263", version: "v01.010.002", size: "93.36 GB",
-    image: "Covers/PPSA04263.jpg", links: ["https://vik1ngfile.site/f/yz6O4vWMzq#PPSA04263-app0.rar"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @Jobsitos"] },
+    image: "Covers/PPSA04263.jpg", links: ["https://vik1ngfile.site/f/yz6O4vWMzq#PPSA04263-app0.rar"], ampr: "v0.3.3", backport: "4.xx+", credits: "@Jobsitos" },
 
   { title: "007 First Light", id: "PPSA11386", version: "v1.018", size: "50.23 GB",
-    image: "Covers/PPSA11386.jpg", links: ["https://vik1ngfile.site/f/7exAyPg3rN#[007"], tags: ["ampr-emu-ng v0.3.3", "12.xx+", "Creditos: @RafaelJFonseca"] },
+    image: "Covers/PPSA11386.jpg", links: ["https://vik1ngfile.site/f/7exAyPg3rN#[007"], ampr: "v0.3.3", backport: "12.xx+", credits: "@RafaelJFonseca" },
 
   { title: "Silent Hill f", id: "PPSA21159", version: "v01.001", size: "35.70 GB",
-    image: "Covers/PPSA21159.jpg", links: ["https://vik1ngfile.site/f/siFH78WHoN#[SILENT"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @G_O_J_19"] },
+    image: "Covers/PPSA21159.jpg", links: ["https://vik1ngfile.site/f/siFH78WHoN#[SILENT"], ampr: "v0.3.3", backport: "4.xx+", credits: "@G_O_J_19" },
 
   { title: "Marvel's Wolverine", id: "PPSA03671", version: "01.001.005", size: "100.28 GB",
-    image: "Covers/PPSA03671.webp", links: ["https://vik1ngfile.site/f/dLeYxL5iD5"], tags: ["ampr-emu-ng v0.3.4", "4.xx+", "Creditos: Gabriel Marin"] },
+    image: "Covers/PPSA03671.webp", links: ["https://vik1ngfile.site/f/dLeYxL5iD5"], ampr: "v0.3.4", backport: "4.xx+", credits: "Gabriel Marin" },
 
   { title: "EA Sports UFC 6", id: "PPSA23566", version: "v1.005", size: "69.12 GB",
-    image: "Covers/PPSA23566.jpg", links: ["https://vik1ngfile.site/f/4AWSpm4w12", "https://vik1ngfile.site/f/3Nnj6cmzPa", "https://vik1ngfile.site/f/9nckmH6C0X", "https://vik1ngfile.site/f/Z3HitoMfcT", "https://vik1ngfile.site/f/mFEhwq0Zkj", "https://vik1ngfile.site/f/4blieJ0cqV", "https://vik1ngfile.site/f/Wg1lpBTUVB"], tags: ["ampr-emu-ng v0.3.3", "12.xx+", "Creditos: Senku"] },
+    image: "Covers/PPSA23566.jpg", links: ["https://vik1ngfile.site/f/4AWSpm4w12", "https://vik1ngfile.site/f/3Nnj6cmzPa", "https://vik1ngfile.site/f/9nckmH6C0X", "https://vik1ngfile.site/f/Z3HitoMfcT", "https://vik1ngfile.site/f/mFEhwq0Zkj", "https://vik1ngfile.site/f/4blieJ0cqV", "https://vik1ngfile.site/f/Wg1lpBTUVB"], ampr: "v0.3.3", backport: "12.xx+", credits: "Senku" },
 
   { title: "Pragmata", id: "PPSA02530", version: "v01.300.000", size: "32.96 GB",
-    image: "Covers/PPSA02530.jpg", links: ["https://vik1ngfile.site/f/JfKVrhbMNs#[PRAGMATA]"], tags: ["ampr-emu-ng v0.3.3", "12.xx+", "Creditos: @G_O_J_19"] },
+    image: "Covers/PPSA02530.jpg", links: ["https://vik1ngfile.site/f/JfKVrhbMNs#[PRAGMATA]"], ampr: "v0.3.3", backport: "12.xx+", credits: "@G_O_J_19" },
 
   { title: "The Rogue Prince of Persia", id: "PPSA28155", version: "v01.006.000", size: "788.44 MB",
-    image: "Covers/PPSA28155.jpg", links: ["https://vik1ngfile.site/f/dcKIhXHfr1"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @DaxCyc"] },
+    image: "Covers/PPSA28155.jpg", links: ["https://vik1ngfile.site/f/dcKIhXHfr1"], ampr: "v0.3.3", backport: "4.xx+", credits: "@DaxCyc" },
 
   { title: "Hades II", id: "PPSA36082", version: "v01.006.000", size: "7.85 GB",
-    image: "Covers/PPSA36082.avif", links: ["https://vik1ngfile.site/f/TK494bpKBv"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: @DaxCyc"] },
+    image: "Covers/PPSA36082.avif", links: ["https://vik1ngfile.site/f/TK494bpKBv"], ampr: "v0.3.3", backport: "4.xx+", credits: "@DaxCyc" },
 
   { title: "REANIMAL", id: "PPSA23372", version: "v01.000.012", size: "12.60 GB",
-    image: "Covers/PPSA23372.jpg", links: ["https://vik1ngfile.site/f/iEqKyBZg6U"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: Oslo"] },
+    image: "Covers/PPSA23372.jpg", links: ["https://vik1ngfile.site/f/iEqKyBZg6U"], ampr: "v0.3.3", backport: "4.xx+", credits: "Oslo" },
 
   { title: "The Last of Us™ Part I", id: "PPSA03396", version: "v02.000.000", size: "76.11 GB",
-    image: "Covers/PPSA03396.jpg", links: ["https://vik1ngfile.site/f/XgJmTFWeiR"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: Gabriel Marin"] },
+    image: "Covers/PPSA03396.jpg", links: ["https://vik1ngfile.site/f/XgJmTFWeiR"], ampr: "v0.3.3", backport: "4.xx+", credits: "Gabriel Marin" },
 
   { title: "Assassin's Creed Mirage", id: "PPSA07230", version: "v01.012.000", size: "60.9 GB",
-    image: "Covers/PPSA07230.avif", links: ["https://vik1ngfile.site/f/CjhsT3EEwI"], tags: ["ampr-emu-ng v0.3.3", "9.xx+", "Creditos: @modehone"] },
+    image: "Covers/PPSA07230.avif", links: ["https://vik1ngfile.site/f/CjhsT3EEwI"], ampr: "v0.3.3", backport: "9.xx+", credits: "@modehone" },
 
   { title: "Ratatan", id: "PPSA34884", version: "v01.000.006", size: "1.77 GB",
-    image: "Covers/PPSA34884.jpg", links: ["https://vik1ngfile.site/f/VeDCiL9iAK"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: AxlFuy"] },
+    image: "Covers/PPSA34884.jpg", links: ["https://vik1ngfile.site/f/VeDCiL9iAK"], ampr: "v0.3.3", backport: "4.xx+", credits: "AxlFuy" },
 
   { title: "Tennis World Tour 2", id: "PPSA02019", version: "v01.000.007", size: "14.03 GB",
-    image: "Covers/PPSA02019.jpg", links: ["https://vik1ngfile.site/f/wDvJA4kHQ5#ZSTD-[Tennis"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: Pablo Contreras T"] },
+    image: "Covers/PPSA02019.jpg", links: ["https://vik1ngfile.site/f/wDvJA4kHQ5#ZSTD-[Tennis"], ampr: "v0.3.3", backport: "4.xx+", credits: "Pablo Contreras T" },
 
   { title: "The Last of Us™ Part II Remastered", id: "PPSA10662", version: "v01.002.000", size: "93.2 GB",
-    image: "Covers/PPSA10662.jpg", links: ["https://gofile.io/d/DctoR96v"], tags: ["ampr-emu-ng v0.3.3", "4.xx+", "Creditos: Javier Herrera"] },
+    image: "Covers/PPSA10662.jpg", links: ["https://gofile.io/d/DctoR96v"], ampr: "v0.3.3", backport: "4.xx+", credits: "Javier Herrera" },
 
   { title: "Marvel's Spider-Man Miles Morales", id: "PPSA01411", version: "v01.015.001", size: "51.89 GB",
-    image: "Covers/PPSA01411.jpg", links: ["https://vik1ngfile.site/f/iXaAzHFGdV"], tags: ["ampr-emu-ng v0.3.3", "5.xx+", "Creditos: Gabriel Marin"] },
+    image: "Covers/PPSA01411.jpg", links: ["https://vik1ngfile.site/f/iXaAzHFGdV"], ampr: "v0.3.3", backport: "5.xx+", credits: "Gabriel Marin" },
 
   { title: "The Blood of Dawnwalker", id: "PPSA28000", version: "v01.005", size: "46.23 GB",
-    image: "Covers/PPSA28000.jpg", links: ["https://vik1ngfile.site/f/crOQ7bGAAW"], tags: ["ampr-emu-ng v0.3.4", "4.xx+", "Creditos: AxlFuy"] },
+    image: "Covers/PPSA28000.jpg", links: ["https://vik1ngfile.site/f/crOQ7bGAAW"], ampr: "v0.3.4", backport: "4.xx+", credits: "AxlFuy" },
 
   { title: "The Legend of Heroes Trails from Zero", id: "PPSA36136", version: "v01.005.005", size: "3.94GB",
-    image: "Covers/PPSA36136.jpg", links: ["https://vik1ngfile.site/f/A0HJ0cqmEd#[The"], tags: ["ampr-emu-ng v0.3.4", "12.xx+", "Creditos: PSXJowie"] },
+    image: "Covers/PPSA36136.jpg", links: ["https://vik1ngfile.site/f/A0HJ0cqmEd#[The"], ampr: "v0.3.4", backport: "12.xx+", credits: "PSXJowie" },
 
   { title: "The Legend of Heroes Trails to Azure", id: "PPSA36140", version: "v01.002.005", size: "6.64 GB",
-    image: "Covers/PPSA36140.jpg", links: ["https://vik1ngfile.site/f/4YkYKxPiIA#[The"], tags: ["ampr-emu-ng v0.3.4", "12.xx+", "Creditos: PSXJowie"] },
+    image: "Covers/PPSA36140.jpg", links: ["https://vik1ngfile.site/f/4YkYKxPiIA#[The"], ampr: "v0.3.4", backport: "12.xx+", credits: "PSXJowie" },
 
   { title: "New Joe & Mac: Caveman Ninja", id: "PPSA02801", version: "v01.003", size: "703.55 MB",
-    image: "Covers/PPSA02801.jpg", links: ["https://vik1ngfile.site/f/TIiKgd0HRd"], tags: ["ampr-emu-ng v0.3.4", "5.xx+", "Creditos: @Bixin79"] },
+    image: "Covers/PPSA02801.jpg", links: ["https://vik1ngfile.site/f/TIiKgd0HRd"], ampr: "v0.3.4", backport: "5.xx+", credits: "@Bixin79" },
 
   { title: "ASTRO BOT", id: "PPSA21567", version: "01.018.000", size: "39.58 GB",
-    image: "Covers/PPSA21567.avif", links: ["https://welinkly.com/yaredcf/astroot"], tags: ["ampr-emu-ng v0.3.4", "4.xx+", "Creditos: @rbustosm"] },
+    image: "Covers/PPSA21567.avif", links: ["https://welinkly.com/yaredcf/astroot"], ampr: "v0.3.4", backport: "4.xx+", credits: "@rbustosm" },
 
   { title: "Metaphor: ReFantazio", id: "PPSA20800", version: "v01.013", size: "42.47 GB",
-    image: "Covers/PPSA20800.jpg", links: ["https://vik1ngfile.site/f/749Ebyrtlr"], tags: ["ampr-emu-ng v0.3.4", "4.xx+", "Creditos: Poncho"] },
+    image: "Covers/PPSA20800.jpg", links: ["https://vik1ngfile.site/f/749Ebyrtlr"], ampr: "v0.3.4", backport: "4.xx+", credits: "Poncho" },
 
   { title: "Metaphor: ReFantazio", id: "PPSA20800", version: "v01.013", size: "42.47 GB",
-    image: "Covers/PPSA20800.jpg", links: ["https://vik1ngfile.site/f/749Ebyrtlr"], tags: ["ampr-emu-ng v0.3.4", "4.xx+", "Creditos: Poncho"] }
+    image: "Covers/PPSA20800.jpg", links: ["https://vik1ngfile.site/f/749Ebyrtlr"], ampr: "v0.3.4", backport: "4.xx+", credits: "Poncho" }
 
 ];
 
@@ -283,6 +334,8 @@ const ITEMS = [
 const grid = document.getElementById('grid');
 const search = document.getElementById('search');
 const viewBtn = document.getElementById('view');
+
+let activeMenu = null;
 
 function hue(str) {
   let h = 0;
@@ -309,22 +362,125 @@ function safeUrl(u) {
   }
 }
 
-/* Opens every link belonging to the selected card */
-function openLinks(event, links) {
+/* Cierra el selector si ya hay uno abierto */
+function closeLinkMenu() {
+  if (activeMenu) {
+    activeMenu.remove();
+    activeMenu = null;
+  }
+}
+
+/* Muestra el selector de enlaces */
+function showLinkMenu(event, links) {
+  closeLinkMenu();
+
+  const validLinks = links
+    .map(safeUrl)
+    .filter(Boolean);
+
+  if (!validLinks.length) return;
+
+  const menu = document.createElement('div');
+  menu.className = 'link-selector';
+  menu.setAttribute('role', 'menu');
+
+  const heading = document.createElement('div');
+  heading.className = 'menu-title';
+  heading.textContent = 'Selecciona un enlace';
+  menu.appendChild(heading);
+
+  validLinks.forEach((url, index) => {
+    const option = document.createElement('a');
+    option.href = url;
+    option.target = '_blank';
+    option.rel = 'noopener noreferrer';
+    option.textContent = `Enlace ${index + 1}`;
+    option.setAttribute('role', 'menuitem');
+
+    option.addEventListener('click', () => {
+      closeLinkMenu();
+    });
+
+    menu.appendChild(option);
+  });
+
+  document.body.appendChild(menu);
+  activeMenu = menu;
+
+  /* Coloca el menú junto a la tarjeta */
+  const rect = event.currentTarget.getBoundingClientRect();
+  const menuRect = menu.getBoundingClientRect();
+
+  let left = rect.left;
+  let top = rect.bottom + 6;
+
+  /* Evita que se salga por la derecha */
+  if (left + menuRect.width > window.innerWidth - 10) {
+    left = window.innerWidth - menuRect.width - 10;
+  }
+
+  /* Si no cabe abajo, lo muestra encima */
+  if (top + menuRect.height > window.innerHeight - 10) {
+    top = rect.top - menuRect.height - 6;
+  }
+
+  /* Evita que se salga por arriba */
+  top = Math.max(10, top);
+  left = Math.max(10, left);
+
+  menu.style.left = `${left}px`;
+  menu.style.top = `${top}px`;
+
+  const firstOption = menu.querySelector('a');
+  if (firstOption) firstOption.focus();
+}
+
+/* Gestiona el clic en cada tarjeta */
+function handleCardClick(event, links) {
   event.preventDefault();
 
   if (!Array.isArray(links)) return;
 
-  links.forEach(link => {
-    const url = safeUrl(link);
+  const validLinks = links
+    .map(safeUrl)
+    .filter(Boolean);
 
-    if (url) {
-      window.open(url, '_blank', 'noopener,noreferrer');
-    }
-  });
+  if (validLinks.length === 1) {
+    closeLinkMenu();
+    window.open(validLinks[0], '_blank', 'noopener,noreferrer');
+    return;
+  }
+
+  if (validLinks.length > 1) {
+    showLinkMenu(event, links);
+  }
 }
 
+/* Cierra el menú al hacer clic fuera */
+document.addEventListener('click', event => {
+  if (
+    activeMenu &&
+    !activeMenu.contains(event.target) &&
+    !event.target.closest('.card')
+  ) {
+    closeLinkMenu();
+  }
+});
+
+/* Cierra el menú con Escape */
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') {
+    closeLinkMenu();
+  }
+});
+
+/* Cierra el menú al desplazarse */
+window.addEventListener('scroll', closeLinkMenu, true);
+window.addEventListener('resize', closeLinkMenu);
+
 function render() {
+  closeLinkMenu();
+
   const q = search.value.trim().toLowerCase();
 
   const list = ITEMS.filter(i =>
@@ -347,10 +503,12 @@ function render() {
     const initials = i.image ? '' :
       `<span class="initials">${esc(i.title.split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase())}</span>`;
 
-    const tags = (i.tags || []).map(t =>
-      t.startsWith('alt:')
-        ? `<span class="tag alt">${esc(t.slice(4))}</span>`
-        : `<span class="tag">${esc(t)}</span>`
+    const tags = [
+      i.ampr ? `ampr-emu-ng ${i.ampr}` : '',
+      i.backport ? i.backport : '',
+      i.credits ? `Créditos: ${i.credits}` : ''
+    ].filter(Boolean).map(t =>
+      `<span class="tag">${esc(t)}</span>`
     ).join('');
 
     return `
@@ -369,14 +527,14 @@ function render() {
     `;
   }).join('');
 
-  // Attach click events to the newly rendered cards
+  /* Eventos de las tarjetas */
   grid.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', event => {
       const index = Number(card.dataset.index);
       const item = list[index];
 
       if (item) {
-        openLinks(event, item.links);
+        handleCardClick(event, item.links);
       }
     });
   });
