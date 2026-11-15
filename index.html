@@ -679,7 +679,7 @@ let alfabetico = false;
 const sortBtn = document.getElementById('sort');
 sortBtn.addEventListener('click', () => {
   alfabetico = !alfabetico;
-  sortBtn.textContent = alfabetico ? '🕒 Recientes' : '🔤 A–Z';
+  sortBtn.textContent = alfabetico ? '🕒' : '🔤';
   sortBtn.setAttribute('aria-pressed', alfabetico);
   render();
 });
