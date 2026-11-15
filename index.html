@@ -169,6 +169,7 @@ button { cursor: pointer; }
 @media (max-width: 600px) {
   .bar { grid-template-columns: auto 1fr auto; }
   #sort { grid-column: 1; justify-self: auto; }
+  #sort .txt { display: none; }
   input { grid-column: 2; min-width: 0; }
   #view { grid-column: 3; }
   input, #sort, #view { grid-row: 1; }
@@ -197,7 +198,7 @@ button { cursor: pointer; }
 </header>
 
 <div class="bar">
-  <button id="sort" type="button" aria-pressed="false">🔤 A–Z</button>
+  <button id="sort" type="button" aria-pressed="false" aria-label="Ordenar de la A a la Z" title="Ordenar de la A a la Z"><span class="ico">🔤</span> <span class="txt">A–Z</span></button>
   <input id="search" type="search" placeholder="Buscar por título o ID..." aria-label="Buscar">
   <button id="view" title="Cambiar entre cuadrícula y lista" aria-label="Cambiar entre cuadrícula y lista">&#9776;</button>
 </div>
@@ -682,7 +683,11 @@ let alfabetico = false;
 const sortBtn = document.getElementById('sort');
 sortBtn.addEventListener('click', () => {
   alfabetico = !alfabetico;
-  sortBtn.textContent = alfabetico ? '🕒 Más recientes' : '🔤 A–Z';
+  sortBtn.querySelector('.ico').textContent = alfabetico ? '🕒' : '🔤';
+  sortBtn.querySelector('.txt').textContent = alfabetico ? 'Más recientes' : 'A–Z';
+  const ayuda = alfabetico ? 'Ver los más recientes primero' : 'Ordenar de la A a la Z';
+  sortBtn.title = ayuda;
+  sortBtn.setAttribute('aria-label', ayuda);
   sortBtn.setAttribute('aria-pressed', alfabetico);
   render();
 });
