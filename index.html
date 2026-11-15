@@ -167,10 +167,11 @@ button { cursor: pointer; }
 }
 
 @media (max-width: 600px) {
-  .bar { grid-template-columns: 1fr auto auto; }
-  input { grid-column: 1; }
-  #sort { grid-column: 2; justify-self: auto; }
+  .bar { grid-template-columns: auto 1fr auto; }
+  #sort { grid-column: 1; justify-self: auto; }
+  input { grid-column: 2; min-width: 0; }
   #view { grid-column: 3; }
+  input, #sort, #view { grid-row: 1; }
   header { gap: 10px; }
   header h1 { font-size: 20px; }
   header p { font-size: 12px; }
@@ -678,7 +679,7 @@ let alfabetico = false;
 const sortBtn = document.getElementById('sort');
 sortBtn.addEventListener('click', () => {
   alfabetico = !alfabetico;
-  sortBtn.textContent = alfabetico ? '🕒 Más recientes' : '🔤 A–Z';
+  sortBtn.textContent = alfabetico ? '🕒 Recientes' : '🔤 A–Z';
   sortBtn.setAttribute('aria-pressed', alfabetico);
   render();
 });
