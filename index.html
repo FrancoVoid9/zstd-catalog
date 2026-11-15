@@ -682,7 +682,7 @@ let alfabetico = false;
 const sortBtn = document.getElementById('sort');
 sortBtn.addEventListener('click', () => {
   alfabetico = !alfabetico;
-  sortBtn.textContent = alfabetico ? '🕒' : '🔤';
+  sortBtn.textContent = alfabetico ? '🕒 Más recientes' : '🔤 A–Z';
   sortBtn.setAttribute('aria-pressed', alfabetico);
   render();
 });
