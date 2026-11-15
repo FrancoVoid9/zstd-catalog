@@ -56,6 +56,7 @@ input, button {
 }
 input { grid-column: 2; width: 100%; }
 #view { grid-column: 3; justify-self: end; }
+#sort { grid-column: 1; justify-self: start; }
 button { cursor: pointer; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
@@ -166,9 +167,10 @@ button { cursor: pointer; }
 }
 
 @media (max-width: 600px) {
-  .bar { grid-template-columns: 1fr auto; }
+  .bar { grid-template-columns: 1fr auto auto; }
   input { grid-column: 1; }
-  #view { grid-column: 2; }
+  #sort { grid-column: 2; justify-self: auto; }
+  #view { grid-column: 3; }
   header { gap: 10px; }
   header h1 { font-size: 20px; }
   header p { font-size: 12px; }
@@ -194,6 +196,7 @@ button { cursor: pointer; }
 </header>
 
 <div class="bar">
+  <button id="sort" type="button" aria-pressed="false">🔤 A–Z</button>
   <input id="search" type="search" placeholder="Buscar por título o ID..." aria-label="Buscar">
   <button id="view" title="Cambiar entre cuadrícula y lista" aria-label="Cambiar entre cuadrícula y lista">&#9776;</button>
 </div>
@@ -597,11 +600,12 @@ function render() {
 
   const q = search.value.trim().toLowerCase();
 
-  const list = ITEMS.filter(i =>
+  let list = ITEMS.filter(i =>
     !q || i.title.toLowerCase().includes(q) ||
     String(i.id).toLowerCase().includes(q)
   );
 
+  if (alfabetico) list.sort((a, b) => a.title.localeCompare(b.title, 'es', { sensitivity: 'base', numeric: true }));
   if (!list.length) {
     grid.innerHTML = '<p class="empty">No hay resultados para tu búsqueda.</p>';
     return;
@@ -665,6 +669,15 @@ const n = ITEMS.length;
 
 document.getElementById('count').textContent =
   n + (n === 1 ? ' Juego' : ' Juegos');
+
+let alfabetico = false;
+const sortBtn = document.getElementById('sort');
+sortBtn.addEventListener('click', () => {
+  alfabetico = !alfabetico;
+  sortBtn.textContent = alfabetico ? '🕒 Más recientes' : '🔤 A–Z';
+  sortBtn.setAttribute('aria-pressed', alfabetico);
+  render();
+});
 
 render();
 
