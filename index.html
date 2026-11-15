@@ -622,12 +622,13 @@ function render() {
 
   grid.innerHTML = list.map((i, index) => {
     const h = hue(i.title);
+    const img = i.image && !i.image.endsWith('/') ? i.image : '';
 
-    const bg = i.image
-      ? `background-image:url('${esc(i.image)}')`
+    const bg = img
+      ? `background-image:url('${esc(img)}')`
       : `background-image:linear-gradient(160deg,hsl(${h} 55% 38%),hsl(${(h + 50) % 360} 60% 18%))`;
 
-    const initials = i.image ? '' :
+    const initials = img ? '' :
       `<span class="initials">${esc(i.title.split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase())}</span>`;
 
     const tags = [
