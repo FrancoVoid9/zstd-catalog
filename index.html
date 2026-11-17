@@ -17,6 +17,10 @@
   --tag-text: #8fb4ff;
   --tag2-bg: #123a33;
   --tag2-text: #5fd6b4;
+  --tag3-bg: #30264a;
+  --tag3-text: #c4a7ff;
+  --tag4-bg: #49351d;
+  --tag4-text: #f2c078;
 }
 
 /* Modo claro */
@@ -32,6 +36,10 @@
     --tag-text: #2a5bc4;
     --tag2-bg: #dff5ee;
     --tag2-text: #11785f;
+    --tag3-bg: #eee7ff;
+    --tag3-text: #6841a5;
+    --tag4-bg: #fff0d9;
+    --tag4-text: #986016;
   }
 }
 
@@ -46,6 +54,11 @@
   --tag-bg: #e3ecff;
   --tag-text: #2a5bc4;
   --tag2-bg: #dff5ee;
+  --tag2-text: #11785f;
+  --tag3-bg: #eee7ff;
+  --tag3-text: #6841a5;
+  --tag4-bg: #fff0d9;
+  --tag4-text: #986016;
 }
 
 /* Modo oscuro seleccionado manualmente */
@@ -60,6 +73,10 @@
   --tag-text: #8fb4ff;
   --tag2-bg: #123a33;
   --tag2-text: #5fd6b4;
+  --tag3-bg: #30264a;
+  --tag3-text: #c4a7ff;
+  --tag4-bg: #49351d;
+  --tag4-text: #f2c078;
 }
 
 * {
@@ -362,9 +379,19 @@ button {
   border: 1px solid var(--line);
 }
 
-.tag.alt {
+.tag.firmware {
   background: var(--tag2-bg);
   color: var(--tag2-text);
+}
+
+.tag.credits {
+  background: var(--tag3-bg);
+  color: var(--tag3-text);
+}
+
+.tag.notes {
+  background: var(--tag4-bg);
+  color: var(--tag4-text);
 }
 
 /* Selector de enlaces */
@@ -1489,13 +1516,13 @@ function render() {
       : `<span class="initials">${esc(i.title.split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase())}</span>`;
 
     const tags = [
-      i.ampr ? `ampr-emu-ng ${i.ampr}` : '',
-      i.firmware ? i.firmware : '',
-      i.credits ? `Créditos: ${i.credits}` : '',
-      i.notes ? `Notas: ${i.notes}` : ''
+      i.ampr ? { text: `ampr-emu-ng ${i.ampr}`, className: 'ampr' } : null,
+      i.firmware ? { text: i.firmware, className: 'firmware' } : null,
+      i.credits ? { text: `Créditos: ${i.credits}`, className: 'credits' } : null,
+      i.notes ? { text: `Notas: ${i.notes}`, className: 'notes' } : null
     ]
       .filter(Boolean)
-      .map(t => `<span class="tag">${esc(t)}</span>`)
+      .map(t => `<span class="tag ${t.className}">${esc(t.text)}</span>`)
       .join('');
 
     return `
