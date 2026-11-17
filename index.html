@@ -661,7 +661,7 @@ const ITEMS = [
   { title: "Resident Evil Requiem", id: "PPSA31246", version: "v1.310", size: "75 GB",
     image: "https://image.api.playstation.com/vulcan/ap/rnd/202512/1205/e0364b3089bbbad7e0a04f87cab6c273172515a134efdf88.png",
     links: ["https://vik1ngfile.site/f/dpMzeeogcR", "https://vik1ngfile.site/f/njZrJILobV"],
-    ampr: "ampr_emu 0.4.2.1", firmware: "4+", credits: "Bloxander",
+    ampr: "0.3.2", firmware: "4.xx+", credits: "Bloxander",
     notes: "2 links uno del juego base y el otro del backport en formato zstd, fue probado en SSD en la entrada tipo c de la parte frontal de la consola." },
 
   { title: "The Bearer & The Last Flame", id: "PPSA18697", version: "01.000.026", size: "22.02 GB",
@@ -1516,7 +1516,7 @@ function render() {
       : `<span class="initials">${esc(i.title.split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase())}</span>`;
 
     const tags = [
-      i.ampr ? { text: `ampr-emu-ng ${i.ampr}`, className: 'ampr' } : null,
+      i.ampr ? { text: `ampr-emu-ng ${i.ampr.replace(/^ampr-emu-ng\s*/i, '')}`, className: 'ampr' } : null,
       i.firmware ? { text: i.firmware, className: 'firmware' } : null,
       i.credits ? { text: `Créditos: ${i.credits}`, className: 'credits' } : null,
       i.notes ? { text: `Notas: ${i.notes}`, className: 'notes' } : null
