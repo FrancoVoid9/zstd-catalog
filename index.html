@@ -1364,33 +1364,33 @@ function showLinkMenu(event, links) {
   document.body.appendChild(menu);
   activeMenu = menu;
 
-  /* Coloca el menú junto a la tarjeta */
-  const rect = event.currentTarget.getBoundingClientRect();
-  const menuRect = menu.getBoundingClientRect();
+/* Coloca el menú preferentemente encima de la tarjeta */
+const rect = event.currentTarget.getBoundingClientRect();
+const menuRect = menu.getBoundingClientRect();
 
-  let left = rect.left;
-  let top = rect.bottom + 6;
+let left = rect.left;
+let top = rect.top - menuRect.height - 6;
 
-  /* Evita que se salga por la derecha */
-  if (left + menuRect.width > window.innerWidth - 10) {
-    left = window.innerWidth - menuRect.width - 10;
-  }
+/* Evita que se salga por la derecha */
+if (left + menuRect.width > window.innerWidth - 10) {
+  left = window.innerWidth - menuRect.width - 10;
+}
 
-  /* Si no cabe abajo, lo muestra encima */
-  if (top + menuRect.height > window.innerHeight - 10) {
-    top = rect.top - menuRect.height - 6;
-  }
+/* Evita que se salga por la izquierda */
+left = Math.max(10, left);
 
-  /* Evita que se salga por arriba */
-  top = Math.max(10, top);
-  left = Math.max(10, left);
+/* Si no cabe arriba, lo coloca debajo */
+if (top < 10) {
+  top = rect.bottom + 6;
+}
 
-  menu.style.left = `${left}px`;
-  menu.style.top = `${top}px`;
+/* Aplica la posición */
+menu.style.left = `${left}px`;
+menu.style.top = `${top}px`;
 
-  const firstOption = menu.querySelector('a');
+const firstOption = menu.querySelector('a');
 
-  if (firstOption) firstOption.focus();
+if (firstOption) firstOption.focus();
 }
 
 /* Gestiona el clic en cada tarjeta */
