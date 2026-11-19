@@ -1,0 +1,1553 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catálogo ZSTD por la comunidad PS5 jailbreak 1.xx 14.10 en español</title>
+
+<style>
+:root {
+  --bg: #0d1220;
+  --panel: #151b2c;
+  --line: #263047;
+  --text: #e8ecf5;
+  --muted: #8b95ad;
+  --accent: #4f8cff;
+  --tag-bg: #17294d;
+  --tag-text: #8fb4ff;
+  --tag2-bg: #123a33;
+  --tag2-text: #5fd6b4;
+}
+
+/* Modo claro */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f2f4f9;
+    --panel: #ffffff;
+    --line: #d9deea;
+    --text: #18202f;
+    --muted: #5f6a82;
+    --accent: #2a64d6;
+    --tag-bg: #e3ecff;
+    --tag-text: #2a5bc4;
+    --tag2-bg: #dff5ee;
+    --tag2-text: #11785f;
+  }
+}
+
+/* Modo claro seleccionado manualmente */
+:root[data-theme="light"] {
+  --bg: #f2f4f9;
+  --panel: #ffffff;
+  --line: #d9deea;
+  --text: #18202f;
+  --muted: #5f6a82;
+  --accent: #2a64d6;
+  --tag-bg: #e3ecff;
+  --tag-text: #2a5bc4;
+  --tag2-bg: #dff5ee;
+  --tag2-text: #11785f;
+}
+
+/* Modo oscuro seleccionado manualmente */
+:root[data-theme="dark"] {
+  --bg: #0d1220;
+  --panel: #151b2c;
+  --line: #263047;
+  --text: #e8ecf5;
+  --muted: #8b95ad;
+  --accent: #4f8cff;
+  --tag-bg: #17294d;
+  --tag-text: #8fb4ff;
+  --tag2-bg: #123a33;
+  --tag2-text: #5fd6b4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark light;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  padding: 16px;
+  transition: background .2s, color .2s;
+}
+
+header {
+  max-width: 1500px;
+  margin: 0 auto 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: .3px;
+}
+
+header p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand img {
+  height: 72px;
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+  display: block;
+}
+
+.count {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Botón Facebook */
+.fb-btn {
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 8px;
+  transition: opacity .15s;
+  white-space: nowrap;
+}
+
+.fb-btn:hover {
+  opacity: .85;
+}
+
+/* Contenedor de switch y Facebook */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Switch de tema */
+.theme-switch {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.theme-switch input {
+  display: none;
+}
+
+.switch-track {
+  position: relative;
+  width: 48px;
+  height: 26px;
+  background: #64748b;
+  border-radius: 20px;
+  transition: background .2s;
+  flex-shrink: 0;
+}
+
+.switch-track::before {
+  content: "🌙";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  transition: transform .2s;
+}
+
+.theme-switch input:checked + .switch-track {
+  background: var(--accent);
+}
+
+.theme-switch input:checked + .switch-track::before {
+  content: "☀️";
+  transform: translateX(22px);
+}
+
+.theme-switch input:focus-visible + .switch-track {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Barra de búsqueda y controles */
+.bar {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 420px) 1fr;
+  gap: 10px;
+  align-items: center;
+  max-width: 1500px;
+  margin: 0 auto 18px;
+}
+
+input, button {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font: inherit;
+  font-size: 13px;
+}
+
+input {
+  grid-column: 2;
+  width: 100%;
+}
+
+#view {
+  grid-column: 3;
+  justify-self: end;
+}
+
+#sort {
+  grid-column: 1;
+  justify-self: start;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Cuadrícula: 15 tarjetas por fila */
+.grid {
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(18, minmax(0, 1fr));
+}
+
+/* Pantallas medianas */
+@media (max-width: 1400px) {
+  .grid {
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+  }
+}
+
+/* Tablets */
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+/* Móviles */
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Vista de lista */
+.grid.list {
+  grid-template-columns: 1fr;
+}
+
+/* Tarjetas */
+.card {
+  display: block;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color .15s, transform .15s;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.cover {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  background-size: cover;
+  background-position: center;
+}
+
+.cover .initials {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 44px;
+  font-weight: 700;
+  color: rgba(255,255,255,.85);
+  letter-spacing: 1px;
+}
+
+.chip {
+  position: absolute;
+  bottom: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0,0,0,.65);
+  padding: 2px 7px;
+  border-radius: 5px;
+}
+
+.chip.size {
+  left: 8px;
+}
+
+.chip.ver {
+  right: 8px;
+}
+
+.info {
+  padding: 10px 12px 12px;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.id {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 0 8px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  border: 1px solid var(--line);
+}
+
+.tag.alt {
+  background: var(--tag2-bg);
+  color: var(--tag2-text);
+}
+
+/* Selector de enlaces */
+.link-selector {
+  position: fixed;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  min-width: 145px;
+  max-width: 220px;
+  padding: 6px;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.4);
+  animation: menuAppear .12s ease-out;
+}
+
+@keyframes menuAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.link-selector .menu-title {
+  padding: 7px 10px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.link-selector a {
+  display: block;
+  padding: 9px 10px;
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 13px;
+  transition: background .15s;
+}
+
+.link-selector a:hover,
+.link-selector a:focus-visible {
+  background: var(--tag-bg);
+  color: var(--accent);
+}
+
+/* Vista de lista */
+.grid.list {
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.grid.list .card {
+  display: flex;
+}
+
+.grid.list .cover {
+  width: 72px;
+  aspect-ratio: 1;
+  flex: none;
+}
+
+.grid.list .initials {
+  font-size: 22px;
+}
+
+.grid.list .chip {
+  display: none;
+}
+
+.grid.list .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--muted);
+  padding: 40px 0;
+}
+
+/* Adaptación móvil */
+@media (max-width: 600px) {
+  .bar {
+    grid-template-columns: auto 1fr auto;
+  }
+
+  #sort {
+    grid-column: 1;
+    justify-self: auto;
+  }
+
+  #sort .txt {
+    display: none;
+  }
+
+  input {
+    grid-column: 2;
+    min-width: 0;
+  }
+
+  #view {
+    grid-column: 3;
+  }
+
+  input, #sort, #view {
+    grid-row: 1;
+  }
+
+  header {
+    gap: 10px;
+  }
+
+  header h1 {
+    font-size: 20px;
+  }
+
+  header p {
+    font-size: 12px;
+  }
+
+  .brand {
+    gap: 10px;
+  }
+
+  .brand img {
+    height: 80px !important;
+    max-width: 96px;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  .fb-btn {
+    padding: 7px 12px;
+    font-size: 13px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">
+    <img id="logo" src="logo.png" alt="Logo">
+
+    <div id="brand-text">
+      <h1>Catálogo ZSTD por la comunidad PS5 jailbreak 1.xx 14.10 en español</h1>
+      <p>Aportes comunitarios. De la comunidad para la comunidad ☭</p>
+      <p id="count" class="count"></p>
+    </div>
+  </div>
+
+  <!-- Switch de tema y botón de Facebook -->
+  <div class="header-actions">
+
+    <label class="theme-switch" aria-label="Cambiar tema">
+      <input type="checkbox" id="themeToggle">
+      <span class="switch-track"></span>
+      <span id="themeLabel">Oscuro</span>
+    </label>
+
+    <a class="fb-btn"
+       href="https://www.facebook.com/groups/1360606341513689/"
+       target="_blank"
+       rel="noopener noreferrer">
+      Grupo de Facebook
+    </a>
+
+  </div>
+</header>
+
+<div class="bar">
+  <button id="sort"
+          type="button"
+          aria-pressed="false"
+          aria-label="Ordenar de la A a la Z"
+          title="Ordenar de la A a la Z">
+    <span class="ico">🔤</span>
+    <span class="txt">A–Z</span>
+  </button>
+
+  <input id="search"
+         type="search"
+         placeholder="Buscar por título o ID..."
+         aria-label="Buscar">
+
+  <button id="view"
+          title="Cambiar entre cuadrícula y lista"
+          aria-label="Cambiar entre cuadrícula y lista">
+    &#9776;
+  </button>
+</div>
+
+<main class="grid" id="grid"></main>
+
+<script>
+
+/* ============ EDITA TUS JUEGOS AQUÍ ============
+   title   : nombre que se muestra en la tarjeta
+   id      : cualquier ID que quieras
+   version : versión del juego
+   size    : tamaño del juego
+   image   : ruta o URL de la portada (opcional)
+   links   : ARRAY de enlaces
+   ampr    : versión de ampr-emu-ng
+   firmware: versión mínima de firmware
+   credits : nombre o usuario del colaborador
+   notes   : notas adicionales (opcional)
+
+   Un solo enlace:
+   links: ["https://test.com"]
+
+   Varios enlaces:
+   links: ["https://test.com", "https://test2.com"]
+
+   Si hay un enlace, se abre directamente.
+   Si hay varios, aparece un selector para elegir.
+*/
+
+const ITEMS = [
+  /* BOT:INICIO */
+  { title: "Dragon's Dogma 2", id: "PPSA09663", version: "04.000.000", size: "82.5 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202305/3007/2fff756fa904befe46b838dd6f27fa49f6b53d9f3dbbb776.png",
+    links: ["https://vikingfile.com/f/JlL4FuLZE1"],
+    ampr: "ampr-emu-ng 0.3.2", firmware: "12.00+", credits: "Rumenrsd",
+    notes: "Probado en FW: 12.20" },
+
+  { title: "Alien: Rogue Incursion Evolved Edition", id: "PPSA30391", version: "01.000.009", size: "18.6 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202505/0600/bbfa7883bab4670175da783f706ecc34e61f945863ab1f52.jpg",
+    links: ["https://vikingfile.com/f/pibPAqVNHZ"],
+    ampr: "ampr-emu-ng 0.3.2", firmware: "4.00+", credits: "Rumenrsd",
+    notes: "Probado en FW:12.20" },
+
+  { title: "The Forgotten City", id: "PPSA03026", version: "01.000.005", size: "12 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202106/3010/d9mDtIQcdjeqaTcKbk35SY0a.jpg",
+    links: ["https://vikingfile.com/f/Ww3NO8Tzit"],
+    ampr: "ampr-emu-ng 0.3.2", firmware: "2.00+", credits: "Rumenrsd",
+    notes: "Probado en FW 12.20" },
+
+  { title: "Quantum Error", id: "PPSA04479", version: "01.000.009", size: "92 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202308/0918/866ba9b18fe9098f5afe1710577be76dd190f154516dad42.jpg",
+    links: ["https://vikingfile.com/f/52jSg02QFv"],
+    ampr: "ampr-emu-ng 0.3.2", firmware: "7.00+t", credits: "Rumenrsd",
+    notes: "Probado en FW: 12.20 ... ZSTD compresion MAX formato carpeta" },
+
+  { title: "Battlefield™ 6", id: "PPSA19534", version: "01.000.016", size: "118 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202507/2217/61569015edf6c81b2e9772271e357b3c69ff0c2a4a5a2d07.png",
+    links: ["https://vikingfile.com/f/nS2eZzkVyz"],
+    ampr: "ampr-emu-ng 0.3.2", firmware: "10.00+", credits: "Rumenrsd",
+    notes: "Probado en 12.20" },
+
+  { title: "RESIDENT EVIL requiem", id: "PPSA30803-2", version: "01.200.000", size: "73.1 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202512/1205/e0364b3089bbbad7e0a04f87cab6c273172515a134efdf88.png",
+    links: ["https://vikingfile.com/f/bbqjQduHxm#"],
+    ampr: "ampr-emu-ng 0.3.2", firmware: "8.00+", credits: "PSXJowie",
+    notes: "El juego incluye backport es modo folder+zstd, fue comprimido a ZSTD en medium. Fue probado en externo SSD e interno EXT1. Recomiendo usar EXT1." },
+
+  { title: "The Legend of Heroes: Trails through Daybreak", id: "PPSA18986", version: "01.002.000", size: "12.7 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202404/1121/fb5ed299042a77fed5d95b006b3de83e80f5cb2e5e3a03c0.png",
+    links: ["https://vikingfile.com/f/oksvf7pnG6#"],
+    ampr: "ampr-emu-ng v0.34", firmware: "4.00+", credits: "PSXJowie",
+    notes: "Fue comprimido a ZSTD en medium. Fue probado en externo SSD e interno EXT1. Recomiendo usar EXT1." },
+
+  { title: "The Legend of Heroes: Trails through Daybreak II", id: "PPSA24326", version: "01.002.000", size: "19.0 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202406/2500/91941944c2b6e59bf80434d498646306c5482f7817a06910.jpg",
+    links: ["https://vikingfile.com/f/uts9d8baf0#"],
+    ampr: "ampr-emu-ng v0.34", firmware: "5.00+", credits: "PSXJowie",
+    notes: "Fue comprimido a ZSTD en medium. Fue probado en externo SSD e interno EXT1. Recomiendo usar EXT1." },
+
+  { title: "The Legend of Heroes: Trails of Cold Steel IV", id: "PPSA17675", version: "01.001.000", size: "15.8 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202008/1900/1rlfGz7pHsEEKkzsHbNlw0V7.jpg",
+    links: ["https://vikingfile.com/f/049SmzE3QY#"],
+    ampr: "ampr-emu-ng v0.34", firmware: "7.00+", credits: "PSXJowie",
+    notes: "Fue comprimido a ZSTD en medium. Fue probado en externo SSD e interno EXT1. Recomiendo usar EXT1." },
+
+  { title: "The Legend of Heroes: Trails of Cold Steel III", id: "PPSA17672", version: "01.001.000", size: "15.9 GB",
+    image: "https://image.api.playstation.com/gs2-sec/appkgo/prod/CUSA15123_00/2/i_7f25c937a7b7b116e05cbd6aa5af73dab421b365af16f5556bc33b16dc7fb369/i/icon0.png",
+    links: ["https://vikingfile.com/f/R5rpjaEnsc#"],
+    ampr: "ampr-emu-ng v0.34", firmware: "7.00+", credits: "PSXJowie",
+    notes: "Fue comprimido a ZSTD en medium. Fue probado en externo SSD e interno EXT1. Recomiendo usar EXT1." },
+
+  { title: "Ghost Of Yotei- [Complete Edition]", id: "PPSA26344", version: "v02.002", size: "125.48 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202504/2116/395b45219557497b6580e4ce372f8dea604ee5dd16f45da5.png",
+    links: ["https://vikingfile.com/f/if3Vkfvyxm"],
+    ampr: "v0.4.0", firmware: "4.xx (Backport)", credits: "@Romina-Pol",
+    notes: "al empezar te saldrá. Ocurrió un problema (CE-108111-2) Solo acéptalo y empezará el juego bien" },
+
+  { title: "Hollow Knight: Silksong", id: "PPSA12544-2", version: "01.000.010", size: "2.45 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202508/2503/d975a2a2d80276d9891d8d3430fb8ec7ed2e4ad807707e76.png",
+    links: ["https://vik1ngfile.site/f/Np1wHTRIew"],
+    ampr: "0.3.4", firmware: "4.xx+", credits: "David Alcala",
+    notes: "Formato .exfat ZSTD" },
+
+  { title: "Hollow Knight: Silksong", id: "PPSA12544", version: "01.000.010", size: "2.36 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202508/2503/d975a2a2d80276d9891d8d3430fb8ec7ed2e4ad807707e76.png",
+    links: ["https://vikingfile.com/f/yTRGpwfjWZ"],
+    ampr: "0.3.4", firmware: "4.xx+", credits: "@yared_cf",
+    notes: "" },
+
+  { title: "Mortal Kombat 1", id: "PPSA07570", version: "v1.010.001", size: "145 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202305/1515/93797636f47b37b74e9d3740e17ae1306aaf539c7952a703.jpg",
+    links: ["https://vik1ngfile.site/f/poGy6BaaqD#", "https://vik1ngfile.site/f/isimHDGahJ#", "https://vik1ngfile.site/f/fp3EngvVsj#", "https://vik1ngfile.site/f/nfjoiAKwSR#", "https://vik1ngfile.site/f/igVLL7obRt#"],
+    ampr: "0.3.4", firmware: "4.xx+", credits: "@AlanVilte",
+    notes: "5 partes. Descargar todas y extraer en una misma carpeta." },
+
+  { title: "Call of duty Black OPS 1", id: "PPSA34501", version: "01.008.000", size: "22.8 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202606/2618/ccc9235d6b6780e91233b72b0bf27fa77578c1f858805d28.png",
+    links: ["https://vik1ngfile.site/f/CtJmk5Jt4Z"],
+    ampr: "0.3.4", firmware: "12.00 +", credits: "chiefskor",
+    notes: "Probado en FW 13.60 y en un disco duro 3.1 ,los tiempos de carga son muy rápidos" },
+
+  { title: "Death Stranding 2: On the Beach", id: "PPSA02015", version: "v01.013", size: "90 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202503/0316/dc497191f919cd416fca2d188ad6036a6068a82fff59b3f6.png",
+    links: ["https://vik1ngfile.site/f/NTtWHFNndu"],
+    ampr: "0.3.5", firmware: "4.xx+", credits: "@Jalvarez132",
+    notes: "Se recomienda actualizar el AMPR a la ultima version" },
+
+  { title: "Contra - Operation Galuga", id: "PPSA15368", version: "01.000.003", size: "8.52 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202405/1601/51e30e9d63d91a523e1c1f3f38997c2af226f1f5543d588a.png",
+    links: ["https://vikingfile.com/f/uSgpWwwUve"],
+    ampr: "0.3.4", firmware: "7.00+", credits: "Valefor",
+    notes: "Probado en 13.60 sin errores" },
+
+  { title: "Terminator 2D NO FATE", id: "PPSA25872", version: "01.000.000", size: "539.75 MB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202503/0317/a894773a662030a45b8e2a88b1bf02135c5509e706c7a444.png",
+    links: ["https://vikingfile.com/f/AC0x2aTC84"],
+    ampr: "0.3.4", firmware: "10.00+", credits: "Valefor",
+    notes: "Probado en 13.60 sin errores" },
+
+  { title: "The Thing Remastered", id: "PPSA24381", version: "02.000.000", size: "2.27 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202406/1912/a405db37eb8368949f190b54eb9577264a80138c1e85c131.png",
+    links: ["https://vikingfile.com/f/K3yHOlk6oo"],
+    ampr: "0.3.4", firmware: "7.00+", credits: "Valefor",
+    notes: "Probado en 13.60 sin errores" },
+
+  { title: "Ninja Gaiden Ragebound", id: "PPSA28002", version: "01.006.000", size: "686.03 MB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202504/1616/df0470aacb867c83667e0cdc75cdd9c3eea5b32eea1d6586.png",
+    links: ["https://vikingfile.com/f/fWCsGE2A0F"],
+    ampr: "0.3.4", firmware: "10.00+", credits: "Valefor",
+    notes: "Probado en 13.60 sin errores" },
+
+  { title: "METAL GEAR SOLID 4: Guns of the Patriots - Master Collection", id: "PPSA18194", version: "01.004.003", size: "19.62 GiB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202601/2903/492bf059e5c7ed0ffacd99a444a093d2a785b0cff7fe901e.jpg",
+    links: ["https://vikingfile.com/f/JXZI9Uz02C"],
+    ampr: "ampr-emu-ng 0.3.2", firmware: "10.00+", credits: "Rumenrsd",
+    notes: "Probado a FW-12.20" },
+
+  { title: "Red Dead Redemption 1", id: "PPSA30528", version: "01.002.000", size: "10 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202308/0215/5d3791f0977136cb12752c21058ac27f6d78ac63c9ec55c5.jpg",
+    links: ["https://vik1ngfile.site/f/KoxoUWp9D8"],
+    ampr: "0.3.4", firmware: "Backports", credits: "Chiefskor",
+    notes: "probado en disco duro externo de 3.1 y memoria interna,los tiempos de carga son muy rápidos en un disco rápido, recomiendo jugar en un disco duro externo" },
+
+  { title: "Ninja gaiden 4", id: "PPSA25258", version: "01.004.000", size: "30 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202501/2115/53c57d0a7d2aaf31e31f523dd2adc4151cdbc7bcf0c1160c.jpg",
+    links: ["https://vik1ngfile.site/f/pct0r62Dvn"],
+    ampr: "0.3.4", firmware: "13.60", credits: "Chiefskor",
+    notes: "Probado en Memoria Interna ( Pantalla negra en memoria externa / disco duro )" },
+
+  { title: "Marvel's Spider - Man 2", id: "PPSA03016-2", version: "01.004.003", size: "115 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202306/1219/60eca3ac155247e21850c7d075d01ebf0f3f5dbf19ccd2a1.jpg",
+    links: ["https://vikingfile.com/f/K4nIXsVYaD"],
+    ampr: "0.4.0", firmware: "4.xx+", credits: "Kaz Marín",
+    notes: "Incluye voces en latino" },
+
+  { title: "Silent Hill 2", id: "PPSA08709", version: "01.006", size: "53 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202210/2000/WJd8SY87zp3xUnCctOrulr5F.png",
+    links: ["https://vikingfile.com/f/07rAtnqBmG", "https://vikingfile.com/f/FjINxCAv4I"],
+    ampr: "0.4.0", firmware: "9.xx+", credits: "Kaz Marín",
+    notes: "Incluye link separado de archivos para backport a 4.xx y respaldo original de archivos 9.xx+. Juego sin mod de voces latinas." },
+
+  { title: "Renmant II", id: "PPSA06693", version: "01.000.039", size: "81.1 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202402/1420/bcc5e31622016354beab02ff7993fe1034bec9ec3995b3cf.jpg",
+    links: ["https://vik1ngfile.site/f/Dlm2V8Y8Sz#"],
+    ampr: "ampr-emu-ng v0.34", firmware: "4.00+", credits: "PSXJowie",
+    notes: "El juego incluye backport para 4.00+, DLC fue comprimido a ZSTD en medium. Fue probado en externo SSD e interno EXT1. Recomiendo usar EXT1." },
+
+  { title: "God of War: Sons of Sparta", id: "PPSA28997", version: "v01.008.001", size: "8.0 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202602/0618/213fb06ade46c1d0d6d3ba2c54c4020b451512e0c7a0e3b5.jpg",
+    links: ["https://gofile.io/d/moHevfwy"],
+    ampr: "v0.3.3", firmware: "4.xx+", credits: "@yared_cf",
+    notes: "" },
+
+  { title: "Marvel's Spider-Man: Remastered", id: "PPSA01467", version: "v01.008.001", size: "66.6 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202011/0402/AcjaXqwZzggGiKLFdEfHMp0H.png",
+    links: ["https://vik1ngfile.site/f/Ms9VvjacNM"],
+    ampr: "v0.3.3", firmware: "1.00+", credits: "@yared_cf",
+    notes: "" },
+
+  { title: "Marvel's Spider-Man 2", id: "PPSA03016", version: "v01.004.003", size: "106.38 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202306/1219/60eca3ac155247e21850c7d075d01ebf0f3f5dbf19ccd2a1.jpg",
+    links: ["https://vik1ngfile.site/f/k1OqDK1mom"],
+    ampr: "v0.3.3", firmware: "4.00+", credits: "@yared_cf",
+    notes: "" },
+
+  { title: "God of War Ragnarök", id: "PPSA08329", version: "v06.006.000", size: "108.39 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202503/2016/1e48e3b7d11fc2da3de62ad8a2a2d3c2882e1bb4ce6caadb.jpg",
+    links: ["https://vik1ngfile.site/f/QSi653U6XF#PPSA08329"],
+    ampr: "v0.3.3", firmware: "4.00+", credits: "Gabriel Marin",
+    notes: "" },
+
+  { title: "Indiana Jones and the Great Circle", id: "PPSA26786", version: "v01.001.005", size: "152.89 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202408/1520/823fb7b3a6a2efb0cc848af4f4980f2bd71c68c16da85d47.jpg",
+    links: ["https://vik1ngfile.site/f/bAa5SOsICA#[Indiana%20Jones%20and%20The%20Great%20Circle]%20-%20[PPSA26786].rar"], ampr: "v0.3.3", firmware: "4.00+", credits: "Rumpell",
+    notes: "" },
+
+  { title: "Borderlands 4", id: "PPSA01494", version: "v01.003.001", size: "42.6 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202504/2900/529bf68c85665e9306b0b3a94c06edde4c0ce39a4007cfff.jpg",
+    links: ["https://welinkly.com/yaredcf/borderlands4"],
+    ampr: "v0.3.3", firmware: "10.xx+", credits: "Eber Collí Canul",
+    notes: "26 links. Descargar todos los archivos y meterlos en una sola carpeta" },
+
+  { title: "MADiSON", id: "PPSA07370", version: "v01.000", size: "3.77 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202205/0516/Jo2Ml8Zp2063EwPKoJ54fTYt.jpg",
+    links: ["https://vik1ngfile.site/f/7aTpsCY7JC#[MADiSON]"], ampr: "v0.3.3", firmware: "4.xx+", credits: "@G_O_J_19",
+    notes: "" },
+
+  { title: "Pac-Man World 2 Re-Pac", id: "PPSA18189", version: "v01.004", size: "4.93 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202507/2217/2f1535a6c4f783a08b9848e0e5ff8df501cbb46a32103ec7.png",
+    links: ["https://vik1ngfile.site/f/s8Tpv61fPr"],
+    ampr: "v0.3.3", firmware: "4.xx+", credits: "Sebastian",
+    notes: "" },
+
+  { title: "EA SPORTS FC 27", id: "PPSA34015", version: "v1.004", size: "84.87 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202607/2322/1afbfc7ac6475a94d0e6aa302302b7e4fdefbf0a28ee1fa6.png",
+    links: ["https://vik1ngfile.site/f/pZ2hVK7gzU"],
+    ampr: "v0.3.3", firmware: "4.xx+", credits: "@RafaelJFonseca",
+    notes: "" },
+
+  { title: "FINAL FANTASY TACTICS - The Ivalice Chronicles", id: "PPSA21783", version: "v1.40", size: "6.80 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202505/0808/5ca25b1294a95b0a88fb2357d7cc5d362e80bdf47da177b4.jpg",
+    links: ["https://vik1ngfile.site/f/dBa1Myzt2B#FINAL"],
+    ampr: "v0.3.3", firmware: "4.xx+", credits: "@RafaelJFonseca",
+    notes: "" },
+
+  { title: "Castlevania: Belmont's Curse", id: "PPSA35399", version: "v01.00", size: "3.65 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202605/2108/98ee5fe75d227f36fe22574f2fab9404d4b69e4318378f39.png",
+    links: ["https://vik1ngfile.site/f/1ATYYaXvRU#Castlevania"],
+    ampr: "v0.3.3", firmware: "4.xx+", credits: "@RafaelJFonseca",
+    notes: "" },
+
+  { title: "Cronos: The New Dawn", id: "PPSA24096", version: "v01.010", size: "20.43 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202410/1511/b60b574c32546f9b5d263b1b38a541abe35e250797f18bde.jpg",
+    links: ["https://vik1ngfile.site/f/NyLfVpHcqO#Cronos"],
+    ampr: "v0.3.3", firmware: "4.xx+", credits: "@RafaelJFonseca",
+    notes: "" },
+
+  { title: "Grand Theft Auto V", id: "PPSA04263", version: "v01.010.002", size: "93.36 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202202/2816/K6mmm89oNII1iI1aqaClO0wh.png",
+    links: ["https://vik1ngfile.site/f/yz6O4vWMzq#PPSA04263-app0.rar"],
+    ampr: "v0.3.3", firmware: "4.xx+", credits: "@Jobsitos",
+    notes: "" },
+
+  { title: "007 First Light", id: "PPSA11386", version: "v1.018", size: "50.23 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202610/0213/debbad276447e7d6accd27a3445c8dd9d8635ed78ca6d4bd.jpg",
+    links: ["https://vik1ngfile.site/f/7exAyPg3rN#[007"],
+    ampr: "v0.3.3", firmware: "12.xx+", credits: "@RafaelJFonseca",
+    notes: "" },
+
+  { title: "Silent Hill f", id: "PPSA21159", version: "v01.001", size: "35.70 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202505/0704/ac8ee550a288cb7d095374a35c14ff0fdbf185b56ce7478a.png",
+    links: ["https://vik1ngfile.site/f/siFH78WHoN#[SILENT"],
+    ampr: "v0.3.3", firmware: "4.xx+", credits: "@G_O_J_19",
+    notes: "" },
+
+  { title: "Marvel's Wolverine", id: "PPSA03671", version: "01.001.005", size: "100.28 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202510/0721/ab0526f97f49e5e810c13b4f7367970f95346b2440baf18b.jpg",
+    links: ["https://vik1ngfile.site/f/dLeYxL5iD5"],
+    ampr: "v0.3.4", firmware: "4.xx+", credits: "Gabriel Marin",
+    notes: "" },
+
+  { title: "EA Sports UFC 6", id: "PPSA23566", version: "v1.005", size: "69.12 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202604/2216/7cc2882c6efb6815884ef18f06e113a7871a513ccda89b32.png",
+    links: ["https://vik1ngfile.site/f/4AWSpm4w12", "https://vik1ngfile.site/f/3Nnj6cmzPa", "https://vik1ngfile.site/f/9nckmH6C0X", 
+    "https://vik1ngfile.site/f/Z3HitoMfcT", "https://vik1ngfile.site/f/mFEhwq0Zkj", "https://vik1ngfile.site/f/4blieJ0cqV", 
+    "https://vik1ngfile.site/f/Wg1lpBTUVB"],
+    ampr: "v0.3.3", firmware: "12.xx+", credits: "Senku",
+    notes: "Descargar las 7 partes y descomprimir" },
+
+  { title: "Pragmata", id: "PPSA02530", version: "v01.300.000", size: "32.96 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202511/2605/b7ec5836e23affe26c8ad00124a1eddddab5e1bad456c03e.jpg",
+    links: ["https://vik1ngfile.site/f/JfKVrhbMNs#[PRAGMATA]"], ampr: "v0.3.3", firmware: "12.xx+", credits: "@G_O_J_19",
+    notes: "" },
+
+  { title: "The Rogue Prince of Persia", id: "PPSA28155", version: "v01.006.000", size: "788.44 MB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202509/1020/3d68b98074a5b926bdce945e386dd754bc3088198fb7892c.jpg",
+    links: ["https://vik1ngfile.site/f/dcKIhXHfr1"],
+    ampr: "v0.3.3", firmware: "4.xx+", credits: "@DaxCyc",
+    notes: "" },
+
+  { title: "Hades II", id: "PPSA36082", version: "v01.006.000", size: "7.85 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202603/2506/4eaaffc1d4e5a8851ae3f1d21e2e108a50450cfae9d1c948.png",
+    links: ["https://vik1ngfile.site/f/TK494bpKBv"],
+    ampr: "v0.3.3", firmware: "4.xx+", credits: "@DaxCyc",
+    notes: "" },
+
+  { title: "REANIMAL", id: "PPSA23372", version: "v01.000.012", size: "12.60 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202408/2010/3d02d3ec10d248f4dc6c1cc5bd9327008d1a4071270bda62.jpg",
+    links: ["https://vik1ngfile.site/f/iEqKyBZg6U"],
+    ampr: "v0.3.3", firmware: "4.xx+", credits: "Oslo",
+    notes: "" },
+
+  { title: "The Last of Us™ Part I", id: "PPSA03396", version: "v02.000.000", size: "76.11 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202206/0720/aZKLRcjaZ8HL03ODxYMZDfaH.png",
+    links: ["https://vik1ngfile.site/f/XgJmTFWeiR"],
+    ampr: "v0.3.3", firmware: "4.xx+", credits: "Gabriel Marin",
+    notes: "" },
+
+  { title: "Assassin's Creed Mirage", id: "PPSA07230", version: "v01.012.000", size: "60.9 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202208/1718/NFf86jgU4AeVYgJBEoEKBpxW.jpg",
+    links: ["https://vik1ngfile.site/f/CjhsT3EEwI"],
+    ampr: "v0.3.3", firmware: "9.xx+", credits: "@modehone",
+    notes: "" },
+
+  { title: "Ratatan", id: "PPSA34884", version: "v01.000.006", size: "1.77 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202608/2704/cfa1b4a184b24b3ba057e5c3fe2663a56efcd33e8522c056.jpg",
+    links: ["https://vik1ngfile.site/f/VeDCiL9iAK"],
+    ampr: "v0.3.3", firmware: "4.xx+", credits: "AxlFuy",
+    notes: "" },
+
+  { title: "Tennis World Tour 2", id: "PPSA02019", version: "v01.000.007", size: "14.03 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202007/1709/vFtJG3B7TZFSkpktD2huly8B.jpg",
+    links: ["https://vik1ngfile.site/f/wDvJA4kHQ5#ZSTD-[Tennis"],
+    ampr: "v0.3.3", firmware: "4.xx+", credits: "Pablo Contreras T",
+    notes: "" },
+
+  { title: "The Last of Us™ Part II Remastered", id: "PPSA10662", version: "v01.002.000", size: "93.2 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202312/0117/7f1d9478fabee95562ace660b90e89b0d87a620e1950874a.png",
+    links: ["https://vikingfile.com/f/lffMCjoyp9", "https://gofile.io/d/DctoR96v"],
+    ampr: "v0.3.3", firmware: "4.xx+", credits: "Javier Herrera",
+    notes: "Viking es el servidor principal, GoFile es el servidor de repaldo" },
+
+  { title: "Marvel's Spider-Man Miles Morales", id: "PPSA01411", version: "v01.015.001", size: "51.89 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202008/1020/PRfYtTZQsuj3ALrBXGL8MjAH.jpg",
+    links: ["https://vik1ngfile.site/f/iXaAzHFGdV"],
+    ampr: "v0.3.3", firmware: "5.xx+", credits: "Gabriel Marin",
+    notes: "" },
+
+  { title: "The Blood of Dawnwalker", id: "PPSA28000", version: "v01.005", size: "46.23 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202512/1814/ddbb64a482de46164e8749051b74419cbd25da80dc2b3cc4.jpg",
+    links: ["https://vik1ngfile.site/f/crOQ7bGAAW"],
+    ampr: "v0.3.4", firmware: "4.xx+", credits: "AxlFuy",
+    notes: "" },
+
+  { title: "The Legend of Heroes Trails from Zero", id: "PPSA36136", version: "v01.005.005", size: "3.94GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202208/1119/mf0k9jlnC3mMwggEjz3sfkGp.jpg",
+    links: ["https://vik1ngfile.site/f/A0HJ0cqmEd#[The"],
+    ampr: "v0.3.4", firmware: "12.xx+", credits: "PSXJowie",
+    notes: "" },
+
+  { title: "The Legend of Heroes Trails to Azure", id: "PPSA36140", version: "v01.002.005", size: "6.64 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202301/0401/nz0LF6wasKsf9T7pGqIjlrAS.jpg",
+    links: ["https://vik1ngfile.site/f/4YkYKxPiIA#[The"],
+    ampr: "v0.3.4", firmware: "12.xx+", credits: "PSXJowie",
+    notes: "" },
+
+  { title: "New Joe & Mac: Caveman Ninja", id: "PPSA02801", version: "v01.003", size: "703.55 MB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202207/0416/bqnlWFLdA3U5UVf5jc54S7XG.jpg",
+    links: ["https://vik1ngfile.site/f/TIiKgd0HRd"],
+    ampr: "v0.3.4", firmware: "5.xx+", credits: "@Bixin79",
+    notes: "" },
+
+  { title: "ASTRO BOT", id: "PPSA21567", version: "01.018.000", size: "39.58 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202406/0500/0d05cb43413f28a641ac0c40fc272c70bbe194f6ade4b175.png",
+    links: ["https://vikingfile.com/f/fo3PsXqAlv", "https://rootz.so/d/IvOYC"],
+    ampr: "v0.3.4", firmware: "4.xx+", credits: "@rbustosm",
+    notes: "Descargar juego y DLC" },
+
+  { title: "Metaphor: ReFantazio", id: "PPSA20800", version: "v01.013", size: "42.47 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202405/2406/e148dc7fa4658360199188e1ed14f9d79d3adeec84c82162.png",
+    links: ["https://vik1ngfile.site/f/749Ebyrtlr"],
+    ampr: "v0.3.4", firmware: "4.xx+", credits: "Poncho",
+    notes: "" },
+
+  { title: "Plants vs. Zombies Replanted", id: "PPSA29802", version: "v01.510", size: "1.43 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202507/1618/202926aa5a93edd5eb3ebe7ab137babfeee79ec7e3336a17.png",
+    links: ["https://vik1ngfile.site/f/MRrIsTn9SN"],
+    ampr: "v0.3.3", firmware: "", credits: "@DaxCyc",
+    notes: "" },
+
+  { title: "Castlevania Belmont's Curse", id: "PPSA35399-2", version: "v01.00", size: "3.65 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202605/2108/98ee5fe75d227f36fe22574f2fab9404d4b69e4318378f39.png",
+    links: ["https://vik1ngfile.site/f/0rjuYv0M39#[Castlevania"],
+    ampr: "v0.3.3", firmware: "11.xx+", credits: "Vladimir Morfa",
+    notes: "" },
+
+  { title: "Super Meat Boy 3D", id: "PPSA31162", version: "v02.000.001", size: "2.54 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202506/0614/7d3aea7efe4c74dd6b5660893fbd8f47ddebc96809cc9630.jpg",
+    links: ["https://vik1ngfile.site/f/fyjjyFV8Db"],
+    ampr: "v0.3.3", firmware: "4.xx+", credits: "@DaxCyc",
+    notes: "" },
+
+  { title: "Wuchang: Fallen Feathers", id: "PPSA09518", version: "v01.013", size: "15.85 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202504/0311/9ae422106574a80dc231d257d458c2a967fe7f0bac58c9e7.png",
+    links: ["https://vik1ngfile.site/f/AhVkOuuEF5#[WUCHANG"],
+    ampr: "v0.3.3", firmware: "10.xx+", credits: "@MS14GAMEZ",
+    notes: "" },
+
+  { title: "Demon Slayer: The Hinokami Chronicles", id: "PPSA25427", version: "v02.000.001", size: "21.82 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202504/1707/0e5cfd44d28684cc12f2abc131f309a93a2165fd9f76e403.jpg",
+    links: ["https://vik1ngfile.site/f/ft0aidh0rj#[Demon"],
+    ampr: "v0.3.3", firmware: "4.xx+", credits: "@Khabhu",
+    notes: "" },
+
+  { title: "Resident Evil 4", id: "PPSA07411", version: "v01.590", size: "80.43 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202207/2509/85p2Dwh5iDhUzRKe40QeNYh3.png",
+    links: ["https://vik1ngfile.site/f/RMn54Nerfw"],
+    ampr: "v0.3.3", firmware: "7.xx+", credits: "Javier Herrera",
+    notes: "" },
+
+  { title: "Halo: Campaign Evolved ", id: "PPSA28038", version: "v17.661", size: "64.37 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202510/1321/c524e8b2ef71631a6d084eb9dcc7fcf36518693d47a87931.jpg",
+    links: ["https://vik1ngfile.site/f/77hTL6paPx"],
+    ampr: "v0.3.3", firmware: "4.xx+", credits: "Javier Herrera",
+    notes: "" },
+
+  { title: "The Dark Pictures Anthology: House of Ashes", id: "PPSA02594", version: "v01.007", size: "27.62 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202106/0713/R4K1zB3n0v3rNl4oZlslkJV2.jpg",
+    links: ["https://vik1ngfile.site/f/Q8IrRcIR7F#[The"],
+    ampr: "v0.3.3", firmware: "3.xx+", credits: "@iAmaya2002",
+    notes: "" },
+
+  { title: "Resident Evil Requiem", id: "PPSA30803", version: "v01.200", size: "78.05 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202512/1205/e0364b3089bbbad7e0a04f87cab6c273172515a134efdf88.png",
+    links: ["https://vik1ngfile.site/f/WlPZjn2vv1"],
+    ampr: "v0.3.4", firmware: "4.xx+", credits: "Kaz Marin",
+    notes: "Formato .zstd Usar shadow_mount_plus_zstd de ModGames44" },
+
+  { title: "Resident Evil 2", id: "PPSA04288", version: "v01.003", size: "23.06 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202206/0204/uDFoGvnMTTCLVmTwjj0njGWC.png",
+    links: ["https://vik1ngfile.site/f/wQ0zBZjInu"],
+    ampr: "v0.3.4", firmware: "3.xx+", credits: "Kaz Marin",
+    notes: "Formato .zstd Usar shadow_mount_plus_zstd de ModGames44" },
+
+  { title: "Resident Evil 3", id: "PPSA03952", version: "v1.004", size: "21.59 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202206/0206/WmriZBRlSeXWEEDLJOWW7MdW.png",
+    links: ["https://vik1ngfile.site/f/trRpFKn1VR"],
+    ampr: "v0.3.4", firmware: "3.xx+", credits: "Kaz Marin",
+    notes: "Formato .zstd Usar shadow_mount_plus_zstd de ModGames44" },
+
+  { title: "Resident Evil Village", id: "PPSA01556", version: "v01.210", size: "41.65 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202101/0812/FkzwjnJknkrFlozkTdeQBMub.png",
+    links: ["https://vik1ngfile.site/f/5j5Ds4wtE2"],
+    ampr: "v0.3.4", firmware: "4.xx+", credits: "Kaz Marin",
+    notes: "Formato .zstd Usar shadow_mount_plus_zstd de ModGames44" },
+
+  { title: "Call Of Duty Modern Warefare III", id: "PPSA01649", version: "v01.055", size: "150.28 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202605/2815/29a54cb76a7aec11b30ba337399ac966beebf5bfccbaebc5.png",
+    links: ["https://vik1ngfile.site/f/2ZVlZkI4BQ#[Call"],
+    ampr: "v0.3.4", firmware: "4.xx+", credits: "Mauricio",
+    notes: "" },
+
+  { title: "FINAL FANTASY RESONANCE", id: "PPSA31544", version: "v1.000.001", size: "12.21 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202604/2403/3a5b644daaf4b0885cacc7a56fc91765ee7635dc55c8962e.png",
+    links: ["https://vik1ngfile.site/f/8gimYYJrux#[FINAL"],
+    ampr: "v0.3.4", firmware: "11.xx+", credits: "Vladimir Morfa",
+    notes: "" },
+
+  { title: "RESIDENT EVIL 2", id: "PPSA04288-2", version: "v01.003", size: "21.99 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202206/0204/uDFoGvnMTTCLVmTwjj0njGWC.png",
+    links: ["https://vik1ngfile.site/f/MAXjCYrhxf#[RESIDENT"],
+    ampr: "v0.3.4", firmware: "3.xx+", credits: "PSXJowie",
+    notes: "" },
+
+  { title: "RESIDENT EVIL 3", id: "PPSA03952-2", version: "v01.004", size: "20.51 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202206/0206/WmriZBRlSeXWEEDLJOWW7MdW.png",
+    links: ["https://vik1ngfile.site/f/0WnymBPN2I#[RESIDENT"],
+    ampr: "v0.3.4", firmware: "3.xx+", credits: "PSXJowie",
+    notes: "" },
+
+  { title: "DRAGON BALL: Sparking! ZERO", id: "PPSA15210", version: "v3.000.005", size: "28.40 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202405/2306/4cd58335849eb1b3a2f1da02b6cbb21bfc11f973aefd5cc5.jpg",
+    links: ["https://vik1ngfile.site/f/XNVvHPwdop", "https://vik1ngfile.site/f/xeizgS5XBt"],
+    ampr: "v0.3.4", firmware: "4.xx+", credits: "reckmoon",
+    notes: "Descargar juego y DLC" },
+
+  { title: "Silent Hill: Townfall", id: "PPSA33286", version: "v2.003", size: "56.69 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202605/1407/879aa64e43d91a8931fd278671494ec993f0c5f93f50f2ad.jpg",
+    links: ["https://vik1ngfile.site/f/hY1FWIZ6oX"],
+    ampr: "v0.3.4", firmware: "5.xx+", credits: "Waton Pablo",
+    notes: "" },
+
+  { title: "Black Myth: Wukong", id: "PPSA23226", version: "v1.000.021", size: "102.17 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202405/2117/59be402814be4dbf2ba860689f76895fc81510e615c925bd.png",
+    links: ["https://vik1ngfile.site/f/JpPE3zQ8as"],
+    ampr: "v0.3.4", firmware: "4.xx+", credits: "@orochiblood666",
+    notes: "" },
+
+  { title: "Ratchet & Clank: Rift Apart", id: "PPSA01474", version: "v1.005.003", size: "41.91 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202101/2921/CrGbGyUFNdkZKbg9DM2qPTE1.jpg",
+    links: ["https://vik1ngfile.site/f/tWhQzM3hnz"],
+    ampr: "v0.3.4", firmware: "4.xx+", credits: "StarYeen",
+    notes: "" },
+
+  { title: "MOUSE P.I. For Hire", id: "PPSA26578", version: "v1.000", size: "8.82 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202506/0206/beac66e3cf1ad2fe9f597e930c1ced4a208e6934bae075a0.png",
+    links: ["https://vik1ngfile.site/f/fGzkzd1ypm"],
+    ampr: "v0.3.4", firmware: "4.xx+", credits: "Gil",
+    notes: "" },
+
+  { title: "Minecraft Legends", id: "PPSA05510", version: "v01.013", size: "6.70 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202207/1516/vKJUC8jvShq5YUHt83QDSwis.jpg",
+    links: ["https://vik1ngfile.site/f/5vjTWCJGWX"],
+    ampr: "v0.3.4", firmware: "5.xx+", credits: "@Jaime7au",
+    notes: "" },
+
+  { title: "Street Fighter 6", id: "PPSA02633", version: "v1.028", size: "101.76 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202211/1407/XFU0aPBvtm3W2od1ZvhByAOv.png",
+    links: ["https://vik1ngfile.site/f/gMsb1o1Nt2"],
+    ampr: "v0.3.4", firmware: "4.xx+", credits: "Waton Pablo",
+    notes: "" },
+
+  { title: "Morbid: The Lords of Ire", id: "PPSA13524", version: "v01.400.100", size: "10.45 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202402/1411/a15103ae81cf5327365c2965283ebf2ccf4bb5d56736dd54.jpg",
+    links: ["https://vik1ngfile.site/f/xRPZhqtKD5"],
+    ampr: "v0.3.4", firmware: "8.xx+", credits: "Feby",
+    notes: "" },
+
+  { title: "Monster Hunter Stories 3: Twisted Reflection", id: "PPSA26873", version: "v01.002", size: "34.99 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202510/1005/a09a71be0ef59273817c8f816a71cbdd1a417e169ec87719.png",
+    links: ["https://vik1ngfile.site/f/eybAIcfGZf"],
+    ampr: "v0.3.4", firmware: "11.xx+", credits: "@Jalvarez132",
+    notes: "" },
+
+  { title: "Hogwarts Legacy", id: "PPSA01603", version: "v01.013", size: "114.21 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202208/0921/Ah7Ar9MU0r1BBlzAUflmhyQP.png",
+    links: ["https://vik1ngfile.site/f/UJjvXVa9Bf"],
+    ampr: "v0.3.4", firmware: "10.xx+", credits: "Waton Pablo",
+    notes: "" },
+
+  { title: "My Little Puppy", id: "PPSA33802", version: "v02.010", size: "6.94 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202509/3012/b8b5f621e3d4bb64b744805cbe2e7fcf8135f1d2e70a642b.jpg",
+    links: ["https://vik1ngfile.site/f/yek4kb7jp1"],
+    ampr: "v0.3.4", firmware: "4.xx+", credits: "Waton Pablo",
+    notes: "" },
+
+  { title: "Clive Barker's Hellraiser: Revival", id: "PPSA25642", version: "v01.005", size: "50.99 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202507/1809/519956b48e154b9614439f012e7a7bb05130ddbdabf600e7.png",
+    links: ["https://vik1ngfile.site/f/e29Ci5uqeF"],
+    ampr: "v0.3.4", firmware: "12.xx+", credits: "Waton Pablo",
+    notes: "" },
+
+  { title: "Horizon Forbidden West", id: "PPSA17905", version: "v01.030", size: "120.40 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202010/2915/f2jH2HOP0yYYQtDPd8LjqErv.jpg",
+    links: ["https://vik1ngfile.site/f/zlA0iUZ3mq"],
+    ampr: "v0.3.4", firmware: "4.xx+", credits: "Kaz Marín",
+    notes: "" },
+
+  { title: "Resident Evil 7: Biohazardt", id: "PPSA04404", version: "v01.000.004", size: "30.89 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202206/0207/V6IViuKogBMRtajqjnYrcj0e.png",
+    links: ["https://vik1ngfile.site/f/hBpAg5C3uq#"],
+    ampr: "v0.3.4", firmware: "4.xx+", credits: "Kaz Marín",
+    notes: "" },
+
+  { title: "The Adventures of Elliot: The Millennium Tales", id: "PPSA32309", version: "v01.100", size: "15.01 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202601/1912/b5a499582e76829925ef74ec1b9b11b7068c93267dfb429b.jpg",
+    links: ["https://vik1ngfile.site/f/Xis5gBSd78"],
+    ampr: "v0.3.4", firmware: "4.xx+", credits: "Gil",
+    notes: "" },
+
+  { title: "Lego Batman: Legacy of the Dark Knight", id: "PPSA16833", version: "v01.010", size: "33.46 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202508/1316/63c063c243da18279bee5c1bd3e9deabb0a0b535e5af650d.png",
+    links: ["https://vik1ngfile.site/f/KaOeAPtkzY#[LEGO"],
+    ampr: "v0.3.4", firmware: "12.xx+", credits: "Oslo",
+    notes: "" },
+
+  { title: "LOLLIPOP CHAINSAW RePOP", id: "PPSA21837", version: "v01.017.001", size: "12.69 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202407/0911/b3eb15d615ea151dd5c39998bf1b67dc4c447f129dbed615.jpg",
+    links: ["https://vik1ngfile.site/f/yY1lMsCCvk#"],
+    ampr: "v0.3.4", firmware: "8.xx+", credits: "@Jalvarez132",
+    notes: "" },
+
+  { title: "Captain Tsubasa 2: World Fighters", id: "PPSA22728", version: "v01.000.005", size: "15.10 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202604/2117/90ead9cca16c395734af285d8859d1eb5f7a653f08907eca.png",
+    links: ["https://vik1ngfile.site/f/dfjexmJUI5"],
+    ampr: "v0.3.4", firmware: "4.xx+", credits: "Anonimo XD",
+    notes: "" },
+
+  { title: "Stellar Blade Complete Edition", id: "PPSA13197", version: "v1.014.001", size: "37.4 GB",
+    image: "https://image.api.playstation.com/vulcan/ap/rnd/202401/2211/a66e399e454256181c758f156c1bdeeb7dae40e21fb92504.jpg",
+    links: ["https://vik1ngfile.site/f/BNgeKDXD1Q"],
+    ampr: "v0.3.4", firmware: "4.xx+", credits: "Alejandro",
+    notes: "" },
+
+];
+
+/* ============================================= */
+
+
+/* ============ ELEMENTOS PRINCIPALES ============ */
+
+const grid = document.getElementById('grid');
+const search = document.getElementById('search');
+const viewBtn = document.getElementById('view');
+
+
+/* ============ CAMBIO DE TEMA ============ */
+
+const themeToggle = document.getElementById('themeToggle');
+const themeLabel = document.getElementById('themeLabel');
+
+// Recuperar tema guardado
+const savedTheme = localStorage.getItem('theme');
+
+// El tema predeterminado será oscuro
+const initialTheme = savedTheme || 'dark';
+
+// Aplicar tema
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+
+  themeToggle.checked = theme === 'light';
+
+  themeLabel.textContent = theme === 'light'
+    ? 'Claro'
+    : 'Oscuro';
+
+  localStorage.setItem('theme', theme);
+}
+
+// Aplicar tema inicial
+setTheme(initialTheme);
+
+// Escuchar cambios del switch
+themeToggle.addEventListener('change', () => {
+  setTheme(themeToggle.checked ? 'light' : 'dark');
+});
+
+
+/* ============================================= */
+
+let activeMenu = null;
+
+function hue(str) {
+  let h = 0;
+
+  for (const c of str) {
+    h = (h * 31 + c.charCodeAt(0)) % 360;
+  }
+
+  return h;
+}
+
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[c]));
+}
+
+function safeUrl(u) {
+  try {
+    const p = new URL(u, location.href);
+    return /^https?:$/.test(p.protocol) ? p.href : null;
+  } catch {
+    return null;
+  }
+}
+
+/* Cierra el selector si ya hay uno abierto */
+function closeLinkMenu() {
+  if (activeMenu) {
+    activeMenu.remove();
+    activeMenu = null;
+  }
+}
+
+/* Muestra el selector de enlaces */
+function showLinkMenu(event, links) {
+  closeLinkMenu();
+
+  const validLinks = links
+    .map(safeUrl)
+    .filter(Boolean);
+
+  if (!validLinks.length) return;
+
+  const menu = document.createElement('div');
+  menu.className = 'link-selector';
+  menu.setAttribute('role', 'menu');
+
+  const heading = document.createElement('div');
+  heading.className = 'menu-title';
+  heading.textContent = 'Selecciona un enlace';
+  menu.appendChild(heading);
+
+  validLinks.forEach((url, index) => {
+    const option = document.createElement('a');
+
+    option.href = url;
+    option.target = '_blank';
+    option.rel = 'noopener noreferrer';
+    option.textContent = `Enlace ${index + 1}`;
+    option.setAttribute('role', 'menuitem');
+
+    option.addEventListener('click', () => {
+      closeLinkMenu();
+    });
+
+    menu.appendChild(option);
+  });
+
+  document.body.appendChild(menu);
+  activeMenu = menu;
+
+  /* Coloca el menú junto a la tarjeta */
+  const rect = event.currentTarget.getBoundingClientRect();
+  const menuRect = menu.getBoundingClientRect();
+
+  let left = rect.left;
+  let top = rect.bottom + 6;
+
+  /* Evita que se salga por la derecha */
+  if (left + menuRect.width > window.innerWidth - 10) {
+    left = window.innerWidth - menuRect.width - 10;
+  }
+
+  /* Si no cabe abajo, lo muestra encima */
+  if (top + menuRect.height > window.innerHeight - 10) {
+    top = rect.top - menuRect.height - 6;
+  }
+
+  /* Evita que se salga por arriba */
+  top = Math.max(10, top);
+  left = Math.max(10, left);
+
+  menu.style.left = `${left}px`;
+  menu.style.top = `${top}px`;
+
+  const firstOption = menu.querySelector('a');
+
+  if (firstOption) firstOption.focus();
+}
+
+/* Gestiona el clic en cada tarjeta */
+function handleCardClick(event, links) {
+  event.preventDefault();
+
+  if (!Array.isArray(links)) return;
+
+  const validLinks = links
+    .map(safeUrl)
+    .filter(Boolean);
+
+  if (validLinks.length === 1) {
+    closeLinkMenu();
+
+    window.open(
+      validLinks[0],
+      '_blank',
+      'noopener,noreferrer'
+    );
+
+    return;
+  }
+
+  if (validLinks.length > 1) {
+    showLinkMenu(event, links);
+  }
+}
+
+/* Cierra el menú al hacer clic fuera */
+document.addEventListener('click', event => {
+  if (
+    activeMenu &&
+    !activeMenu.contains(event.target) &&
+    !event.target.closest('.card')
+  ) {
+    closeLinkMenu();
+  }
+});
+
+/* Cierra el menú con Escape */
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') {
+    closeLinkMenu();
+  }
+});
+
+/* Cierra el menú al desplazarse */
+window.addEventListener('scroll', closeLinkMenu, true);
+window.addEventListener('resize', closeLinkMenu);
+
+
+/* ============ RENDERIZADO ============ */
+
+function render() {
+  closeLinkMenu();
+
+  const q = search.value.trim().toLowerCase();
+
+  let list = ITEMS.filter(i =>
+    !q ||
+    i.title.toLowerCase().includes(q) ||
+    String(i.id).toLowerCase().includes(q)
+  );
+
+  if (alfabetico) {
+    list.sort((a, b) =>
+      a.title.localeCompare(
+        b.title,
+        'es',
+        {
+          sensitivity: 'base',
+          numeric: true
+        }
+      )
+    );
+  }
+
+  if (!list.length) {
+    grid.innerHTML =
+      '<p class="empty">No hay resultados para tu búsqueda.</p>';
+
+    return;
+  }
+
+  grid.innerHTML = list.map((i, index) => {
+
+    const h = hue(i.title);
+
+    const img = i.image && !i.image.endsWith('/')
+      ? i.image
+      : '';
+
+    const bg = img
+      ? `background-image:url('${esc(img)}')`
+      : `background-image:linear-gradient(160deg,hsl(${h} 55% 38%),hsl(${(h + 50) % 360} 60% 18%))`;
+
+    const initials = img
+      ? ''
+      : `<span class="initials">${esc(i.title.split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase())}</span>`;
+
+    const tags = [
+      i.ampr ? `ampr-emu-ng ${i.ampr}` : '',
+      i.firmware ? i.firmware : '',
+      i.credits ? `Créditos: ${i.credits}` : '',
+      //i.notes ? `Notas: ${i.notes}` : ''
+    ]
+      .filter(Boolean)
+      .map(t => `<span class="tag">${esc(t)}</span>`)
+      .join('');
+
+    return `
+      <a class="card" href="#" data-index="${index}">
+        <div class="cover" style="${bg}">
+          ${initials}
+          <span class="chip size">${esc(i.size)}</span>
+          <span class="chip ver">${esc(i.version)}</span>
+        </div>
+
+        <div class="info">
+          <p class="title" title="${esc(i.title)}">${esc(i.title)}</p>
+          <p class="id">${esc(i.id)}</p>
+          <div class="tags">${tags}</div>
+        </div>
+      </a>
+    `;
+
+  }).join('');
+
+  /* Eventos de las tarjetas */
+  grid.querySelectorAll('.card').forEach(card => {
+
+    card.addEventListener('click', event => {
+
+      const index = Number(card.dataset.index);
+      const item = list[index];
+
+      if (item) {
+        handleCardClick(event, item.links);
+      }
+
+    });
+
+  });
+}
+
+
+/* ============ BUSCADOR ============ */
+
+search.addEventListener('input', render);
+
+
+/* ============ VISTA CUADRÍCULA / LISTA ============ */
+
+viewBtn.addEventListener('click', () => {
+  grid.classList.toggle('list');
+});
+
+
+/* ============ CONTADOR ============ */
+
+const n = ITEMS.length;
+
+document.getElementById('count').textContent =
+  n + (n === 1 ? ' Juego' : ' Juegos');
+
+
+/* ============ ORDEN ALFABÉTICO ============ */
+
+let alfabetico = false;
+
+const sortBtn = document.getElementById('sort');
+
+sortBtn.addEventListener('click', () => {
+
+  alfabetico = !alfabetico;
+
+  sortBtn.querySelector('.ico').textContent =
+    alfabetico ? '🕒' : '🔤';
+
+  sortBtn.querySelector('.txt').textContent =
+    alfabetico ? 'Más recientes' : 'A–Z';
+
+  const ayuda = alfabetico
+    ? 'Ver los más recientes primero'
+    : 'Ordenar de la A a la Z';
+
+  sortBtn.title = ayuda;
+  sortBtn.setAttribute('aria-label', ayuda);
+  sortBtn.setAttribute('aria-pressed', alfabetico);
+
+  render();
+
+});
+
+
+/* ============ INICIAR CATÁLOGO ============ */
+
+render();
+
+
+/* ============ AJUSTE DEL LOGO ============ */
+
+const logo = document.getElementById('logo');
+const brandText = document.getElementById('brand-text');
+
+function fitLogo() {
+  logo.style.height = brandText.offsetHeight + 'px';
+}
+
+logo.addEventListener('load', fitLogo);
+
+logo.addEventListener('error', () => logo.remove());
+
+window.addEventListener('load', fitLogo);
+window.addEventListener('resize', fitLogo);
+
+fitLogo();
+
+</script>
+
+</body>
+</html>
