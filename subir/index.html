@@ -5,365 +5,771 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#0d1220">
+
   <title>Subir archivo | ZSTD Catalog</title>
+
   <style>
     :root {
       color-scheme: dark;
-      --bg:#0d1220; --panel:#151b2c; --line:#263047;
-      --text:#e8ecf5; --muted:#8b95ad; --accent:#4f8cff;
-      --tag-blue-bg:#17294d; --tag-blue:#8fb4ff;
-      --tag-green-bg:#123a33; --tag-green:#5fd6b4;
-      --tag-purple-bg:#30264a; --tag-purple:#c4a7ff;
-      --tag-amber-bg:#49351d; --tag-amber:#f2c078;
-      --shadow:0 18px 55px rgba(0,0,0,.22);
+      --bg: #0d1220;
+      --panel: #151b2c;
+      --line: #263047;
+      --text: #e8ecf5;
+      --muted: #8b95ad;
+      --accent: #4f8cff;
+
+      --tag-bg: #17294d;
+      --tag-text: #8fb4ff;
+      --tag2-bg: #123a33;
+      --tag2-text: #5fd6b4;
+      --tag3-bg: #30264a;
+      --tag3-text: #c4a7ff;
+      --tag4-bg: #49351d;
+      --tag4-text: #f2c078;
+
+      /* Variables de la página de subida */
+      --tag-blue-bg: #17294d;
+      --tag-blue: #8fb4ff;
+      --tag-green-bg: #123a33;
+      --tag-green: #5fd6b4;
+      --tag-purple-bg: #30264a;
+      --tag-purple: #c4a7ff;
+      --tag-amber-bg: #49351d;
+      --tag-amber: #f2c078;
+
+      --shadow: 0 18px 55px rgba(0,0,0,.22);
     }
 
+    /* Modo claro */
     :root[data-theme="light"] {
       color-scheme: light;
-      --bg:#f2f4f9; --panel:#fff; --line:#d9deea;
-      --text:#18202f; --muted:#5f6a82; --accent:#2a64d6;
-      --tag-blue-bg:#e8efff; --tag-blue:#2856a8;
-      --tag-green-bg:#e2f5ef; --tag-green:#176b54;
-      --tag-purple-bg:#f0eaff; --tag-purple:#6745a0;
-      --tag-amber-bg:#fff2dc; --tag-amber:#865512;
-      --shadow:0 18px 55px rgba(24,32,47,.08);
+
+      --bg: #f2f4f9;
+      --panel: #ffffff;
+      --line: #d9deea;
+      --text: #18202f;
+      --muted: #5f6a82;
+      --accent: #2a64d6;
+
+      --tag-bg: #e3ecff;
+      --tag-text: #2a5bc4;
+      --tag2-bg: #dff5ee;
+      --tag2-text: #11785f;
+      --tag3-bg: #eee7ff;
+      --tag3-text: #6841a5;
+      --tag4-bg: #fff0d9;
+      --tag4-text: #986016;
+
+      --tag-blue-bg: #e3ecff;
+      --tag-blue: #2a5bc4;
+      --tag-green-bg: #dff5ee;
+      --tag-green: #11785f;
+      --tag-purple-bg: #eee7ff;
+      --tag-purple: #6841a5;
+      --tag-amber-bg: #fff0d9;
+      --tag-amber: #986016;
+
+      --shadow: 0 18px 55px rgba(24,32,47,.08);
     }
 
-    * { box-sizing:border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
-    html { min-height:100%; background:var(--bg); }
+    html {
+      min-height: 100%;
+      background: var(--bg);
+      color-scheme: dark light;
+    }
 
     body {
-      margin:0; padding:16px; min-height:100vh;
-      background:var(--bg); color:var(--text);
-      font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-      transition:background .2s ease,color .2s ease;
+      margin: 0;
+      padding: 16px;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      transition: background .2s, color .2s;
     }
 
-    button,input { font:inherit; }
-    button { cursor:pointer; }
-    button:disabled { cursor:not-allowed; opacity:.55; }
-    :focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
+    button, input {
+      font: inherit;
+    }
 
-    .shell { width:min(100%,1500px); margin:0 auto; }
+    button {
+      cursor: pointer;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: .55;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .shell {
+      width: min(100%, 1500px);
+      margin: 0 auto;
+    }
+
+    /* =========================================
+       ENCABEZADO IDÉNTICO AL CATÁLOGO
+       ========================================= */
 
     header {
-      display:flex; align-items:center; justify-content:space-between;
-      gap:20px; padding:12px 2px 26px;
+      max-width: 1500px;
+      margin: 0 auto 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
-    .brand { display:flex; align-items:center; gap:18px; min-width:0; }
-    .logo { display:block; width:auto; height:72px; max-width:200px; object-fit:contain; }
-    .heading { min-width:0; }
-
-    h1 {
-      margin:0; font-size:26px; line-height:1.2;
-      letter-spacing:-.035em;
+    header h1 {
+      margin: 0;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: .3px;
+      line-height: normal;
     }
 
-    .subtitle {
-      margin:7px 0 0; color:var(--muted);
-      font-size:14px; line-height:1.5;
+    header p {
+      margin: 4px 0 0;
+      font-size: 14px;
+      color: var(--muted);
     }
 
-    .theme-toggle {
-      flex:none; display:inline-flex; align-items:center; gap:8px;
-      padding:10px 13px; border:1px solid var(--line); border-radius:9px;
-      background:var(--panel); color:var(--text);
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
 
-    .theme-toggle:hover,.secondary:hover { border-color:var(--accent); }
+    .brand img {
+      height: 72px;
+      width: auto;
+      max-width: 200px;
+      object-fit: contain;
+      display: block;
+    }
 
-    main { max-width:900px; margin:clamp(20px,6vh,70px) auto 50px; }
-    .intro { margin-bottom:22px; }
+    .brand-text {
+      min-width: 0;
+    }
+
+    /* Botón Facebook */
+
+    .fb-btn {
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 9px 16px;
+      border-radius: 8px;
+      transition: opacity .15s;
+      white-space: nowrap;
+      display: inline-block;
+    }
+
+    .fb-btn:hover {
+      opacity: .85;
+    }
+
+    /* Contenedor de switch y Facebook */
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* Switch de tema */
+
+    .theme-switch {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .theme-switch input {
+      display: none;
+    }
+
+    .switch-track {
+      position: relative;
+      width: 48px;
+      height: 26px;
+      background: #64748b;
+      border-radius: 20px;
+      transition: background .2s;
+      flex-shrink: 0;
+    }
+
+    .switch-track::before {
+      content: "🌙";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: 3px;
+      top: 3px;
+      background: white;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      transition: transform .2s;
+    }
+
+    .theme-switch input:checked + .switch-track {
+      background: var(--accent);
+    }
+
+    .theme-switch input:checked + .switch-track::before {
+      content: "☀️";
+      transform: translateX(22px);
+    }
+
+    .theme-switch input:focus-visible + .switch-track {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    /* =========================================
+       CONTENIDO DE SUBIDA (CONSERVADO)
+       ========================================= */
+
+    main {
+      max-width: 900px;
+      margin: clamp(20px,6vh,70px) auto 50px;
+    }
+
+    .intro {
+      margin-bottom: 22px;
+    }
 
     .eyebrow {
-      display:inline-flex; align-items:center; gap:7px; padding:6px 10px;
-      border-radius:999px; background:var(--tag-blue-bg); color:var(--tag-blue);
-      font-size:12px; font-weight:650; letter-spacing:.02em;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--tag-blue-bg);
+      color: var(--tag-blue);
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: .02em;
     }
 
     h2 {
-      margin:15px 0 8px;
-      font-size:clamp(25px,4vw,34px);
-      letter-spacing:-.04em;
+      margin: 15px 0 8px;
+      font-size: clamp(25px,4vw,34px);
+      letter-spacing: -.04em;
     }
 
     .intro p {
-      margin:0; max-width:650px;
-      color:var(--muted); line-height:1.65;
+      margin: 0;
+      max-width: 650px;
+      color: var(--muted);
+      line-height: 1.65;
     }
 
     .card {
-      border:1px solid var(--line); border-radius:10px;
-      background:var(--panel); box-shadow:var(--shadow);
-      padding:clamp(18px,4vw,30px);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      padding: clamp(18px,4vw,30px);
     }
 
     .dropzone {
-      min-height:220px; display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      text-align:center; gap:10px; padding:25px;
-      border:1.5px dashed var(--line); border-radius:10px;
-      background:color-mix(in srgb,var(--panel) 88%,var(--accent) 12%);
-      transition:border-color .18s ease,background .18s ease;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 10px;
+      padding: 25px;
+      border: 1.5px dashed var(--line);
+      border-radius: 10px;
+      background: color-mix(in srgb,var(--panel) 88%,var(--accent) 12%);
+      transition: border-color .18s ease,background .18s ease;
     }
 
     .dropzone.dragover {
-      border-color:var(--accent);
-      background:var(--tag-blue-bg);
+      border-color: var(--accent);
+      background: var(--tag-blue-bg);
     }
 
     .upload-icon {
-      width:48px;height:48px;display:grid;place-items:center;
-      border-radius:14px;background:var(--tag-blue-bg);
-      color:var(--tag-blue);font-size:25px;
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--tag-blue-bg);
+      color: var(--tag-blue);
+      font-size: 25px;
     }
 
-    .drop-title { margin:2px 0 0; font-size:17px; font-weight:650; }
-    .drop-help { margin:0; color:var(--muted); font-size:13px; }
+    .drop-title {
+      margin: 2px 0 0;
+      font-size: 17px;
+      font-weight: 650;
+    }
+
+    .drop-help {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
 
     .file-input {
-      position:absolute;width:1px;height:1px;padding:0;margin:-1px;
-      overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
     }
 
     .actions {
-      display:flex;flex-wrap:wrap;justify-content:center;
-      gap:10px;margin-top:7px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 7px;
     }
 
     .btn {
-      display:inline-flex;align-items:center;justify-content:center;gap:8px;
-      min-height:43px;padding:10px 17px;
-      border:1px solid transparent;border-radius:8px;
-      font-weight:650;
-      transition:transform .15s ease,filter .15s ease,border-color .15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 43px;
+      padding: 10px 17px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      font-weight: 650;
+      transition: transform .15s ease,filter .15s ease,border-color .15s ease;
     }
 
     .btn:not(:disabled):hover {
-      transform:translateY(-1px);
-      filter:brightness(1.06);
+      transform: translateY(-1px);
+      filter: brightness(1.06);
     }
 
-    .primary { background:var(--accent); color:#fff; }
+    .primary {
+      background: var(--accent);
+      color: #fff;
+    }
 
     .secondary {
-      background:var(--panel);
-      color:var(--text);
-      border-color:var(--line);
+      background: var(--panel);
+      color: var(--text);
+      border-color: var(--line);
+    }
+
+    .secondary:hover {
+      border-color: var(--accent);
     }
 
     .selected-file {
-      display:none;margin-top:18px;padding:14px 15px;
-      border:1px solid var(--line);border-radius:8px;
-      background:var(--bg);
+      display: none;
+      margin-top: 18px;
+      padding: 14px 15px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--bg);
     }
 
     .selected-file.visible {
-      display:flex;align-items:center;
-      justify-content:space-between;gap:12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
     }
 
-    .file-meta { min-width:0; }
+    .file-meta {
+      min-width: 0;
+    }
 
     .file-name {
-      display:block;overflow-wrap:anywhere;font-weight:650;
+      display: block;
+      overflow-wrap: anywhere;
+      font-weight: 650;
     }
 
     .file-size {
-      display:block;margin-top:4px;
-      color:var(--muted);font-size:13px;
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 13px;
     }
 
     .remove-file {
-      border:0;background:transparent;
-      color:var(--muted);padding:8px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 8px;
     }
 
     .limits {
-      display:flex;flex-wrap:wrap;gap:8px;margin-top:17px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 17px;
     }
 
     .chip {
-      padding:6px 9px;border-radius:7px;
-      background:var(--tag-green-bg);color:var(--tag-green);
-      font-size:12px;font-weight:600;
+      padding: 6px 9px;
+      border-radius: 7px;
+      background: var(--tag-green-bg);
+      color: var(--tag-green);
+      font-size: 12px;
+      font-weight: 600;
     }
 
-    .progress-area { display:none;margin-top:23px; }
-    .progress-area.visible { display:block; }
+    .progress-area {
+      display: none;
+      margin-top: 23px;
+    }
+
+    .progress-area.visible {
+      display: block;
+    }
 
     .progress-top {
-      display:flex;justify-content:space-between;
-      gap:12px;margin-bottom:9px;font-size:13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 9px;
+      font-size: 13px;
     }
 
-    .progress-label { color:var(--text);font-weight:650; }
+    .progress-label {
+      color: var(--text);
+      font-weight: 650;
+    }
 
     .progress-percent {
-      color:var(--muted);font-variant-numeric:tabular-nums;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
     }
 
     .progress-track {
-      height:9px;overflow:hidden;
-      border-radius:99px;background:var(--line);
+      height: 9px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: var(--line);
     }
 
     .progress-fill {
-      height:100%;width:0%;border-radius:99px;
-      background:var(--accent);transition:width .18s ease;
+      height: 100%;
+      width: 0%;
+      border-radius: 99px;
+      background: var(--accent);
+      transition: width .18s ease;
     }
 
     .status {
-      margin:10px 0 0;color:var(--muted);
-      font-size:13px;line-height:1.5;
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
     }
 
     .result {
-      display:none;margin-top:22px;padding:17px;
-      border:1px solid var(--line);border-radius:9px;
-      background:var(--bg);
+      display: none;
+      margin-top: 22px;
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--bg);
     }
 
-    .result.visible { display:block; }
-    .result h3 { margin:0 0 7px;font-size:16px; }
+    .result.visible {
+      display: block;
+    }
+
+    .result h3 {
+      margin: 0 0 7px;
+      font-size: 16px;
+    }
 
     .result p {
-      margin:0 0 13px;color:var(--muted);
-      font-size:13px;line-height:1.5;
+      margin: 0 0 13px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
     }
 
-    .link-row { display:flex;gap:8px; }
+    .link-row {
+      display: flex;
+      gap: 8px;
+    }
 
     .link-row input {
-      min-width:0;flex:1;padding:11px 12px;
-      border:1px solid var(--line);border-radius:8px;
-      background:var(--panel);color:var(--text);
+      min-width: 0;
+      flex: 1;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--text);
     }
 
     .notice {
-      margin-top:18px;padding:13px 15px;border-radius:8px;
-      background:var(--tag-amber-bg);color:var(--tag-amber);
-      font-size:13px;line-height:1.55;
+      margin-top: 18px;
+      padding: 13px 15px;
+      border-radius: 8px;
+      background: var(--tag-amber-bg);
+      color: var(--tag-amber);
+      font-size: 13px;
+      line-height: 1.55;
     }
 
     .error {
-      display:none;margin-top:17px;padding:12px 14px;
-      border:1px solid #b94a4a55;border-radius:8px;
-      background:#a8323212;color:#e07b7b;
-      font-size:13px;line-height:1.5;
+      display: none;
+      margin-top: 17px;
+      padding: 12px 14px;
+      border: 1px solid #b94a4a55;
+      border-radius: 8px;
+      background: #a8323212;
+      color: #e07b7b;
+      font-size: 13px;
+      line-height: 1.5;
     }
 
-    .error.visible { display:block; }
+    .error.visible {
+      display: block;
+    }
 
     footer {
-      margin:25px 0 0;text-align:center;
-      color:var(--muted);font-size:12px;
+      margin: 25px 0 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
     }
 
+    /* =========================================
+       ADAPTACIÓN MÓVIL
+       ========================================= */
+
     @media (max-width:600px) {
-      body { padding:12px; }
+
+      body {
+        padding: 16px;
+      }
 
       header {
-        align-items:flex-start;gap:10px;
-        padding:8px 0 20px;
+        gap: 10px;
       }
 
-      .brand { gap:11px; }
-      .logo { height:54px;max-width:115px; }
-      h1 { font-size:20px; }
-
-      .subtitle { font-size:12px;margin-top:4px; }
-
-      .theme-toggle {
-        padding:9px 10px;font-size:13px;
+      header h1 {
+        font-size: 20px;
       }
 
-      main { margin-top:24px; }
-      .dropzone { min-height:205px; }
-      .link-row { flex-direction:column; }
-      .link-row .btn { width:100%; }
+      header p {
+        font-size: 12px;
+      }
+
+      .brand {
+        gap: 10px;
+      }
+
+      .brand img {
+        height: 80px !important;
+        max-width: 96px;
+      }
+
+      .header-actions {
+        width: 100%;
+        justify-content: flex-end;
+        gap: 12px;
+      }
+
+      .fb-btn {
+        padding: 7px 12px;
+        font-size: 13px;
+      }
+
+      main {
+        margin-top: 24px;
+      }
+
+      .dropzone {
+        min-height: 205px;
+      }
+
+      .link-row {
+        flex-direction: column;
+      }
+
+      .link-row .btn {
+        width: 100%;
+      }
     }
 
     @media (prefers-reduced-motion:reduce) {
       *,*::before,*::after {
-        scroll-behavior:auto!important;
-        transition:none!important;
+        scroll-behavior: auto !important;
+        transition: none !important;
       }
     }
+
   </style>
 </head>
 
 <body>
-  <div class="shell">
-    <header>
-      <div class="brand">
-        <img class="logo" src="../images/logo.png"
-             onerror="this.style.display='none'">
 
-        <div class="heading">
+  <div class="shell">
+
+    <!-- ENCABEZADO IDÉNTICO AL CATÁLOGO -->
+
+    <header>
+
+      <div class="brand">
+
+        <img id="logo"
+             src="../images/logo.png"
+             alt="Logo">
+
+        <div class="brand-text" id="brand-text">
+
           <h1>Catálogo ZSTD por la comunidad PS5 jailbreak 1.xx 14.10 en español</h1>
-          <p class="subtitle">Comunidad de juegos ZSTD · Centro de subida</p>
+
+          <p>Aportes comunitarios. De la comunidad para la comunidad ☭</p>
+
         </div>
+
       </div>
 
-      <button class="theme-toggle" id="themeToggle"
-              type="button" aria-label="Cambiar tema">
-        <span id="themeIcon" aria-hidden="true">☾</span>
-        <span id="themeLabel">Oscuro</span>
-      </button>
+      <div class="header-actions">
+
+        <label class="theme-switch" aria-label="Cambiar tema">
+
+          <input type="checkbox" id="themeToggle">
+
+          <span class="switch-track"></span>
+
+          <span id="themeLabel">Oscuro</span>
+
+        </label>
+
+        <a class="fb-btn"
+           href="https://www.facebook.com/groups/1360606341513689/"
+           target="_blank"
+           rel="noopener noreferrer">
+          Grupo de Facebook
+        </a>
+
+      </div>
+
     </header>
 
+    <!-- FIN DEL ENCABEZADO -->
+
     <main>
+
       <section class="intro">
+
         <span class="eyebrow">↑ CARGA DIRECTA</span>
+
         <h2>Comparte tus juegos ZSTD</h2>
+
         <p>Selecciona un archivo para subirlo a la comunidad. La carga se realiza directamente en VikingFile y al terminar recibirás un enlace para compartir.</p>
+
       </section>
 
       <section class="card" aria-label="Formulario de subida">
+
         <div class="dropzone" id="dropzone">
+
           <div class="upload-icon" aria-hidden="true">⇧</div>
+
           <p class="drop-title">Arrastra tu archivo aquí</p>
+
           <p class="drop-help">o selecciónalo desde tu dispositivo</p>
 
           <div class="actions">
-            <button class="btn primary" id="chooseButton" type="button">
+
+            <button class="btn primary"
+                    id="chooseButton"
+                    type="button">
               Seleccionar archivo
             </button>
+
           </div>
 
-          <input class="file-input" id="fileInput" type="file">
+          <input class="file-input"
+                 id="fileInput"
+                 type="file">
+
         </div>
 
         <div class="selected-file" id="selectedFile">
+
           <div class="file-meta">
+
             <span class="file-name" id="fileName"></span>
+
             <span class="file-size" id="fileSize"></span>
+
           </div>
 
-          <button class="remove-file" id="removeButton"
-                  type="button" aria-label="Quitar archivo">✕</button>
+          <button class="remove-file"
+                  id="removeButton"
+                  type="button"
+                  aria-label="Quitar archivo">✕</button>
+
         </div>
 
         <div class="limits">
+
           <span class="chip">Un archivo por carga</span>
+
           <span class="chip">Sin limite de tamaño</span>
+
           <span class="chip">Si el juego esta en varias partes, sube una por una</span>
+
         </div>
 
         <div class="actions" style="margin-top:20px">
-          <button class="btn primary" id="uploadButton"
-                  type="button" disabled>
+
+          <button class="btn primary"
+                  id="uploadButton"
+                  type="button"
+                  disabled>
             Subir archivo
           </button>
+
         </div>
 
         <div class="progress-area" id="progressArea" aria-live="polite">
+
           <div class="progress-top">
+
             <span class="progress-label" id="progressLabel">Preparando carga…</span>
+
             <span class="progress-percent" id="progressPercent">0%</span>
+
           </div>
 
           <div class="progress-track"
@@ -373,35 +779,50 @@
                aria-valuemax="100"
                aria-valuenow="0"
                id="progressTrack">
+
             <div class="progress-fill" id="progressFill"></div>
+
           </div>
 
           <p class="status" id="statusText">Conectando con VikingFile…</p>
+
         </div>
 
         <div class="error" id="errorBox" role="alert"></div>
 
         <div class="result" id="resultBox">
+
           <h3>¡Archivo subido correctamente!</h3>
+
           <p>Tu archivo ya está disponible en VikingFile. Copia el enlace público para compartirlo.</p>
 
           <div class="link-row">
-            <input id="publicLink" type="text" readonly
+
+            <input id="publicLink"
+                   type="text"
+                   readonly
                    aria-label="Enlace público">
 
-            <button class="btn primary" id="copyButton" type="button">
+            <button class="btn primary"
+                    id="copyButton"
+                    type="button">
               Copiar enlace
             </button>
+
           </div>
+
         </div>
 
         <div class="notice">
           Mantén esta pestaña abierta mientras se realiza la subida. Los archivos grandes pueden tardar bastante, dependiendo de tu conexión.
         </div>
+
       </section>
 
       <footer>Los archivos se almacenan en VikingFile.</footer>
+
     </main>
+
   </div>
 
   <script>
@@ -410,7 +831,9 @@
     const WORKER_URL = "https://prueba-vikingfile.yared-cf.workers.dev";
     const MAX_FILE_SIZE = 200_000_000_000;
     const PARALLEL_UPLOADS = 2;
-    const THEME_STORAGE_KEY = "zstd-theme";
+
+    // Se utiliza la misma clave de tema que el catálogo.
+    const THEME_STORAGE_KEY = "theme";
 
     const $ = id => document.getElementById(id);
 
@@ -422,8 +845,11 @@
     let selectedFile = null;
     let uploading = false;
 
-    // Recuperar el tema guardado.
-    // Si no existe una preferencia, utilizar oscuro.
+    /* =========================================
+       CAMBIO DE TEMA
+       Mismo funcionamiento que el catálogo
+       ========================================= */
+
     function getSavedTheme() {
       try {
         const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
@@ -431,6 +857,7 @@
         return savedTheme === "light" || savedTheme === "dark"
           ? savedTheme
           : "dark";
+
       } catch {
         return "dark";
       }
@@ -438,10 +865,76 @@
 
     let themeChoice = getSavedTheme();
 
+    function applyTheme(choice) {
+
+      themeChoice = choice;
+
+      document.documentElement.setAttribute("data-theme", choice);
+
+      $("themeToggle").checked = choice === "light";
+
+      $("themeLabel").textContent =
+        choice === "light" ? "Claro" : "Oscuro";
+
+      try {
+        localStorage.setItem(THEME_STORAGE_KEY, choice);
+      } catch (error) {
+        console.warn("No se pudo guardar la preferencia de tema.", error);
+      }
+
+      const meta = document.querySelector(
+        'meta[name="theme-color"]'
+      );
+
+      meta.content = choice === "dark"
+        ? "#0d1220"
+        : "#f2f4f9";
+    }
+
+    // Aplicar tema inicial.
+    applyTheme(themeChoice);
+
+    // Escuchar cambios del switch.
+    $("themeToggle").addEventListener("change", () => {
+
+      applyTheme(
+        $("themeToggle").checked ? "light" : "dark"
+      );
+
+    });
+
+    /* =========================================
+       AJUSTE AUTOMÁTICO DEL LOGO
+       Mismo sistema que el catálogo
+       ========================================= */
+
+    const logo = $("logo");
+    const brandText = $("brand-text");
+
+    function fitLogo() {
+      logo.style.height = brandText.offsetHeight + "px";
+    }
+
+    logo.addEventListener("load", fitLogo);
+
+    logo.addEventListener("error", () => logo.remove());
+
+    window.addEventListener("load", fitLogo);
+
+    window.addEventListener("resize", fitLogo);
+
+    fitLogo();
+
+    /* =========================================
+       FUNCIONES ORIGINALES DE SUBIDA
+       ========================================= */
+
     function formatBytes(bytes) {
+
       if (!Number.isFinite(bytes)) return "";
 
       const units = ["B", "KB", "MB", "GB", "TB"];
+
       let value = bytes, unit = 0;
 
       while (value >= 1024 && unit < units.length - 1) {
@@ -452,198 +945,220 @@
       return `${value.toLocaleString("es-MX", {
         maximumFractionDigits: 2
       })} ${units[unit]}`;
+
     }
-
-    // Aplicar y guardar el tema seleccionado.
-    function applyTheme(choice) {
-      themeChoice = choice;
-
-      const root = document.documentElement;
-      root.setAttribute("data-theme", choice);
-
-      // Guardar la preferencia del usuario.
-      try {
-        localStorage.setItem(THEME_STORAGE_KEY, choice);
-      } catch (error) {
-        console.warn("No se pudo guardar la preferencia de tema.", error);
-      }
-
-      // Iconos correctos:
-      // Oscuro = Luna
-      // Claro = Sol
-      $("themeIcon").textContent =
-        choice === "dark" ? "☾" : "☀";
-
-      $("themeLabel").textContent =
-        choice === "dark" ? "Oscuro" : "Claro";
-
-      $("themeToggle").setAttribute(
-        "aria-label",
-        `Tema actual: ${$("themeLabel").textContent}. Cambiar tema`
-      );
-
-      // Actualizar el color de la barra del navegador.
-      const meta = document.querySelector(
-        'meta[name="theme-color"]'
-      );
-
-      meta.content = choice === "dark"
-        ? "#0d1220"
-        : "#f2f4f9";
-    }
-
-    // Alternar directamente entre oscuro y claro.
-    $("themeToggle").addEventListener("click", () => {
-      const nextTheme = themeChoice === "dark"
-        ? "light"
-        : "dark";
-
-      applyTheme(nextTheme);
-    });
-
-    // Inicializar con la preferencia guardada
-    // o con el tema oscuro si es la primera visita.
-    applyTheme(themeChoice);
 
     function showError(message) {
+
       $("errorBox").textContent = message;
+
       $("errorBox").classList.add("visible");
+
     }
 
     function clearMessages() {
+
       $("errorBox").classList.remove("visible");
+
       $("errorBox").textContent = "";
+
       $("resultBox").classList.remove("visible");
+
     }
 
     function setProgress(percent, label, status) {
+
       const safe = Math.max(0, Math.min(100, percent));
 
       $("progressFill").style.width = `${safe}%`;
+
       $("progressPercent").textContent = `${Math.floor(safe)}%`;
+
       $("progressLabel").textContent = label;
+
       $("statusText").textContent = status;
 
       $("progressTrack").setAttribute(
         "aria-valuenow",
         String(Math.floor(safe))
       );
+
     }
 
     function setFile(file) {
+
       if (uploading) return;
 
       clearMessages();
+
       selectedFile = file || null;
 
       if (!selectedFile) {
+
         $("selectedFile").classList.remove("visible");
+
         uploadButton.disabled = true;
+
         return;
+
       }
 
       if (selectedFile.size < 1) {
+
         selectedFile = null;
+
         showError("El archivo está vacío.");
+
         $("selectedFile").classList.remove("visible");
+
         uploadButton.disabled = true;
+
         return;
+
       }
 
       if (selectedFile.size > MAX_FILE_SIZE) {
+
         selectedFile = null;
+
         showError("El archivo supera el límite de 200 GB.");
+
         $("selectedFile").classList.remove("visible");
+
         uploadButton.disabled = true;
+
         return;
+
       }
 
       $("fileName").textContent = selectedFile.name;
+
       $("fileSize").textContent = formatBytes(selectedFile.size);
 
       $("selectedFile").classList.add("visible");
+
       $("progressArea").classList.remove("visible");
 
       uploadButton.disabled = false;
+
     }
 
     chooseButton.addEventListener("click", () => {
+
       fileInput.click();
+
     });
 
     fileInput.addEventListener("change", () => {
+
       setFile(fileInput.files && fileInput.files[0]);
+
     });
 
     $("removeButton").addEventListener("click", () => {
+
       fileInput.value = "";
+
       setFile(null);
+
     });
 
     for (const eventName of ["dragenter", "dragover"]) {
+
       dropzone.addEventListener(eventName, event => {
+
         event.preventDefault();
 
         if (!uploading) {
           dropzone.classList.add("dragover");
         }
+
       });
+
     }
 
     for (const eventName of ["dragleave", "drop"]) {
+
       dropzone.addEventListener(eventName, event => {
+
         event.preventDefault();
+
         dropzone.classList.remove("dragover");
+
       });
+
     }
 
     dropzone.addEventListener("drop", event => {
+
       if (uploading) return;
 
       const files = event.dataTransfer?.files;
 
       if (files && files.length) {
+
         if (files.length > 1) {
+
           showError("Selecciona un solo archivo por carga.");
+
           return;
+
         }
 
         setFile(files[0]);
+
       }
+
     });
 
     async function fetchJson(url, options) {
+
       const response = await fetch(url, options);
 
       let data;
 
       try {
+
         data = await response.json();
+
       } catch {
+
         throw new Error(
           `El servidor devolvió una respuesta no válida (HTTP ${response.status}).`
         );
+
       }
 
       if (!response.ok) {
+
         const detail = data?.error ||
           data?.message ||
           `Error HTTP ${response.status}`;
 
         throw new Error(detail);
+
       }
 
       return data;
+
     }
 
+    /* =========================================
+       PROCESO ORIGINAL DE SUBIDA A VIKINGFILE
+       ========================================= */
+
     uploadButton.addEventListener("click", async () => {
+
       if (!selectedFile || uploading) return;
 
       const file = selectedFile;
 
       uploading = true;
+
       uploadButton.disabled = true;
+
       chooseButton.disabled = true;
+
       $("removeButton").disabled = true;
 
       $("progressArea").classList.add("visible");
@@ -657,14 +1172,22 @@
       );
 
       try {
+
         // Crear sesión; el secreto de la cuenta permanece en Cloudflare.
+
         const session = await fetchJson(`${WORKER_URL}/start`, {
+
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
           body: JSON.stringify({
             size: file.size,
             name: file.name
           })
+
         });
 
         if (
@@ -675,14 +1198,19 @@
           session.urls.length !== session.numberParts ||
           session.numberParts < 1
         ) {
+
           throw new Error(
             "VikingFile devolvió una sesión de carga incompleta."
           );
+
         }
 
         const parts = new Array(session.numberParts);
+
         let completedBytes = 0;
+
         let nextIndex = 0;
+
         let completedParts = 0;
 
         setProgress(
@@ -692,17 +1220,25 @@
         );
 
         async function uploadPart(index) {
+
           const start = index * session.partSize;
+
           const end = Math.min(start + session.partSize, file.size);
+
           const chunk = file.slice(start, end);
 
           let lastError;
 
           for (let attempt = 1; attempt <= 3; attempt++) {
+
             try {
+
               const response = await fetch(session.urls[index], {
+
                 method: "PUT",
+
                 body: chunk
+
               });
 
               if (!response.ok) {
@@ -712,9 +1248,11 @@
               const etag = response.headers.get("ETag");
 
               if (!etag) {
+
                 throw new Error(
                   "No se pudo leer el ETag de la parte. Revisa la configuración CORS de VikingFile."
                 );
+
               }
 
               parts[index] = {
@@ -723,6 +1261,7 @@
               };
 
               completedBytes += chunk.size;
+
               completedParts++;
 
               const percent = (completedBytes / file.size) * 100;
@@ -736,9 +1275,11 @@
               return;
 
             } catch (error) {
+
               lastError = error;
 
               if (attempt < 3) {
+
                 setProgress(
                   (completedBytes / file.size) * 100,
                   "Reintentando una parte…",
@@ -748,26 +1289,35 @@
                 await new Promise(resolve =>
                   setTimeout(resolve, 1200 * attempt)
                 );
+
               }
+
             }
+
           }
 
           throw new Error(
             `No se pudo subir la parte ${index + 1}: ${lastError?.message || "error desconocido"}`
           );
+
         }
 
         async function workerLoop() {
+
           while (true) {
+
             const index = nextIndex++;
 
             if (index >= session.numberParts) return;
 
             await uploadPart(index);
+
           }
+
         }
 
         await Promise.all(
+
           Array.from(
             {
               length: Math.min(
@@ -777,6 +1327,7 @@
             },
             () => workerLoop()
           )
+
         );
 
         setProgress(
@@ -786,12 +1337,18 @@
         );
 
         const result = await fetchJson(`${WORKER_URL}/complete`, {
+
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
           body: JSON.stringify({
             token: session.token,
             parts
           })
+
         });
 
         if (
@@ -799,12 +1356,15 @@
           typeof result.url !== "string" ||
           !/^https:\/\/vikingfile\.com\//i.test(result.url)
         ) {
+
           throw new Error(
             "VikingFile no devolvió un enlace público válido."
           );
+
         }
 
         $("publicLink").value = result.url;
+
         $("resultBox").classList.add("visible");
 
         setProgress(
@@ -816,6 +1376,7 @@
         $("copyButton").textContent = "Copiar enlace";
 
       } catch (error) {
+
         showError(
           error?.message ||
           "Ocurrió un error durante la subida."
@@ -828,33 +1389,54 @@
         );
 
       } finally {
+
         uploading = false;
 
         chooseButton.disabled = false;
+
         $("removeButton").disabled = false;
+
         uploadButton.disabled = !selectedFile;
+
       }
+
     });
 
+    /* =========================================
+       COPIAR ENLACE
+       ========================================= */
+
     $("copyButton").addEventListener("click", async () => {
+
       const link = $("publicLink").value;
 
       if (!link) return;
 
       try {
+
         await navigator.clipboard.writeText(link);
+
         $("copyButton").textContent = "¡Copiado!";
 
       } catch {
+
         $("publicLink").select();
+
         document.execCommand("copy");
+
         $("copyButton").textContent = "¡Copiado!";
+
       }
 
       setTimeout(() => {
+
         $("copyButton").textContent = "Copiar enlace";
+
       }, 2200);
+
     });
+
   </script>
+
 </body>
 </html>
