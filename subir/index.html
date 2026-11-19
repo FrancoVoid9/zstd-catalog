@@ -1211,13 +1211,108 @@
 
         let nextIndex = 0;
 
-        let completedParts = 0;
+        // Bytes que se están transfiriendo en cada parte activa.
+        const inFlightBytes = new Map();
 
-        setProgress(
-          0,
-          "Subiendo archivo…",
-          `${session.numberParts} parte(s) · ${formatBytes(file.size)} en total.`
-        );
+        // Contador de bytes enviados por la red, incluidos los reintentos,
+        // para calcular la velocidad real sin afectar el progreso confirmado.
+        let totalTransferredBytes = 0;
+        let speedSampleBytes = 0;
+        let speedSampleTime = performance.now();
+        let currentSpeed = 0;
+
+        function updateUploadProgress(label = "Subiendo archivo…", prefix = "") {
+
+          const now = performance.now();
+          const elapsed = now - speedSampleTime;
+
+          if (elapsed >= 500) {
+            const bytesSinceSample = totalTransferredBytes - speedSampleBytes;
+            const measuredSpeed = bytesSinceSample / (elapsed / 1000);
+
+            currentSpeed = currentSpeed === 0
+              ? measuredSpeed
+              : (currentSpeed * 0.65) + (measuredSpeed * 0.35);
+
+            speedSampleBytes = totalTransferredBytes;
+            speedSampleTime = now;
+          }
+
+          let activeBytes = 0;
+
+          for (const bytes of inFlightBytes.values()) {
+            activeBytes += bytes;
+          }
+
+          const visibleBytes = Math.min(
+            file.size,
+            completedBytes + activeBytes
+          );
+
+          const percent = (visibleBytes / file.size) * 100;
+
+          const speedText = currentSpeed > 0
+            ? `${formatBytes(currentSpeed)}/s`
+            : "calculando…";
+
+          setProgress(
+            percent,
+            label,
+            `${prefix}Velocidad: ${speedText} · ${formatBytes(visibleBytes)} de ${formatBytes(file.size)}.`
+          );
+        }
+
+        function uploadChunkWithProgress(url, chunk, onProgress) {
+
+          return new Promise((resolve, reject) => {
+
+            const xhr = new XMLHttpRequest();
+
+            xhr.open("PUT", url, true);
+
+            xhr.upload.addEventListener("progress", event => {
+
+              if (event.lengthComputable) {
+                onProgress(Math.min(event.loaded, chunk.size));
+              }
+
+            });
+
+            xhr.addEventListener("load", () => {
+
+              if (xhr.status < 200 || xhr.status >= 300) {
+                reject(new Error(`HTTP ${xhr.status}`));
+                return;
+              }
+
+              const etag = xhr.getResponseHeader("ETag");
+
+              if (!etag) {
+                reject(new Error(
+                  "No se pudo leer el ETag de la parte. Revisa la configuración CORS de VikingFile."
+                ));
+                return;
+              }
+
+              resolve(etag);
+
+            });
+
+            xhr.addEventListener("error", () => {
+              reject(new Error("Error de red durante la subida."));
+            });
+
+            xhr.addEventListener("abort", () => {
+              reject(new Error("La subida fue cancelada."));
+            });
+
+            xhr.send(chunk);
+
+          });
+
+        }
+
+        updateUploadProgress();
 
         async function uploadPart(index) {
 
@@ -1233,27 +1328,40 @@
 
             try {
 
-              const response = await fetch(session.urls[index], {
+              inFlightBytes.set(index, 0);
+              updateUploadProgress();
 
-                method: "PUT",
+              const etag = await uploadChunkWithProgress(
+                session.urls[index],
+                chunk,
+                loaded => {
 
-                body: chunk
+                  const previousLoaded = inFlightBytes.get(index) || 0;
+                  const safeLoaded = Math.max(
+                    previousLoaded,
+                    Math.min(loaded, chunk.size)
+                  );
 
-              });
+                  const newlyTransferred = safeLoaded - previousLoaded;
 
-              if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
-              }
+                  inFlightBytes.set(index, safeLoaded);
+                  totalTransferredBytes += newlyTransferred;
 
-              const etag = response.headers.get("ETag");
+                  updateUploadProgress();
 
-              if (!etag) {
+                }
+              );
 
-                throw new Error(
-                  "No se pudo leer el ETag de la parte. Revisa la configuración CORS de VikingFile."
-                );
+              const lastReportedBytes = inFlightBytes.get(index) || 0;
 
-              }
+              // Cuenta cualquier diferencia final que no haya llegado en
+              // el último evento de progreso del navegador.
+              totalTransferredBytes += Math.max(
+                0,
+                chunk.size - lastReportedBytes
+              );
+
+              inFlightBytes.delete(index);
 
               parts[index] = {
                 partNumber: index + 1,
@@ -1262,15 +1370,7 @@
 
               completedBytes += chunk.size;
 
-              completedParts++;
-
-              const percent = (completedBytes / file.size) * 100;
-
-              setProgress(
-                percent,
-                "Subiendo archivo…",
-                `Parte ${completedParts} de ${session.numberParts} completada · ${formatBytes(completedBytes)} de ${formatBytes(file.size)}.`
-              );
+              updateUploadProgress();
 
               return;
 
@@ -1278,13 +1378,17 @@
 
               lastError = error;
 
-              if (attempt < 3) {
+              inFlightBytes.delete(index);
+              updateUploadProgress(
+                attempt < 3
+                  ? "Reintentando una parte…"
+                  : "Subiendo archivo…",
+                attempt < 3
+                  ? `Intento ${attempt + 1} de 3 para la parte ${index + 1}. `
+                  : ""
+              );
 
-                setProgress(
-                  (completedBytes / file.size) * 100,
-                  "Reintentando una parte…",
-                  `Intento ${attempt + 1} de 3 para la parte ${index + 1}.`
-                );
+              if (attempt < 3) {
 
                 await new Promise(resolve =>
                   setTimeout(resolve, 1200 * attempt)
